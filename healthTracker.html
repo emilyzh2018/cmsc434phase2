@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=640, initial-scale=1.0" />
+  <title>Health Tracking</title>
+  <link rel="stylesheet" href="healthTracker.css" />
+</head>
+<body>
+  <div class="device">
+    <div id="title-bar">
+      <h1>Health Tracking</h1>
+    </div>
+
+
+    <div id="color-block">
+      <ul>
+        <li><strong>Workout Routine of the Day</strong> <button class="small-btn">Edit</button></li>
+        <li><input type="checkbox" /> Pushups - 3 sets</li>
+        <li><input type="checkbox" /> Squats - 3 sets</li>
+      </ul>
+    </div>
+
+
+    <div id="daily-tip-box">
+      <p><strong>Goals Progress</strong> <button class="small-btn">+</button></p>
+      <label>Workout 5x/week</label>
+      <progress value="60" max="100"></progress>
+      <label>Run 1 mile</label>
+      <progress value="80" max="100"></progress>
+    </div>
+
+
+    <details class="gallery-nav">
+      <summary class="gallery-item">Workout Personal Records</summary>
+      <div class="gallery-content">
+        <div class="gallery-item">Bicep Curl<br><strong>20 lbs</strong></div>
+        <div class="gallery-item">Pull Ups<br><strong>5</strong></div>
+        <div class="gallery-item">Deadlift<br><strong>140 lbs</strong></div>
+      </div>
+    </details>
+
+
+    <details class="gallery-nav">
+      <summary class="gallery-item">Trends</summary>
+      <div class="gallery-content">
+        <div class="gallery-item">Mile Pace<br><img src="https://via.placeholder.com/100x50" alt="mile graph" /></div>
+        <div class="gallery-item">Steps<br><img src="https://via.placeholder.com/100x50" alt="steps graph" /></div>
+      </div>
+    </details>
+
+
+    <div class="bottom-nav">
+      <div class="nav-item">
+        <img src="images/insight.png" alt="Insight Icon" class="icon" />
+        <span class="label">Insights</span>
+      </div>
+      <div class="nav-item">
+        <img src="images/watch-fitness.png" alt="Fitness Icon" class="icon" />
+
+        <span class="label">Fitness</span>
+      </div>
+      <div class="nav-item active">
+        <img src="images/home.png" alt="Home Icon" class="icon" />
+
+        <span class="label">Home</span>
+      </div>
+      <div class="nav-item">
+        <img src="images/apple-whole.png" alt="Nutrition Icon" class="icon" />
+
+        <span class="label">Nutrition</span>
+      </div>
+      <div class="nav-item">
+        <img src="images/users-medical.png" alt="Community Icon" class="icon" />
+
+        <span class="label">Community</span>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
