@@ -1,0 +1,145 @@
+body {
+    font-family: 'Inter';
+    font-size: 22px;
+    margin: 0;
+  }
+  
+  .device {
+    margin: auto;
+    width: 640px;
+    height: 960px;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: #D9E0FA;
+  }
+  
+  
+
+  #title-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    outline: 3px solid black;
+    background-color: white;
+  }
+  
+  #title-bar h1 {
+    font-size: 2.5em;
+    color: black;
+    text-align: center;
+  }
+  
+  #color-block {
+    background-color: #D4C9F0;
+    border: 3px solid black;
+    width: 480px;
+    height: auto;
+    margin: 20px auto;
+    padding: 10px;
+    border-radius: 15px;
+  }
+  
+  #color-block ul {
+    padding-left: 15px;
+    margin-top: 5px;
+    list-style-position: inside;
+  }
+  
+  #daily-tip-box {
+    background-color: #D4C9F0;
+    padding: 10px;
+    border: 3px solid black;
+    width: 470px;
+    margin: 20px auto;
+    text-align: left;
+    padding-top: 20px;
+    border-radius: 20px;
+    font-size: 1.1em;
+  }
+  
+  progress {
+    width: 100%;
+    height: 20px;
+    margin-bottom: 10px;
+  }
+  
+
+  .gallery-nav {
+    flex-direction: column;
+    margin-top: 15px;
+    align-items: center;
+  }
+  
+  .gallery-item {
+    border: 3px solid black; 
+    background-color: #E0D3E8;
+    border-radius: 38px;
+    height: auto;
+    width: 200px;
+    font-size: 1.1em;
+    text-align: center;
+    margin: 10px auto;
+    padding: 10px;
+  }
+  
+  .gallery-content {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+  }
+  
+  
+.bottom-nav {
+
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #E5EBFB;
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
+  outline: 3px solid black;
+}
+  
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 1.0em;
+  padding: 5px 25px;
+  cursor: pointer;
+  background-color: #ACD1F0;
+  border-radius: 9px;
+
+}
+  
+.nav-item.active {
+  background-color: #8ACDCF;
+  border-radius: 9px;
+}
+
+.nav-item .icon {
+  width: 45px;
+  height: 45px;
+  margin-bottom: 4px;
+
+}
+  
+  .nav-item .label {
+    font-size: 0.8em;
+  }
+  
+  /* Buttons */
+  .small-btn {
+    background-color: #eee;
+    border: 1px solid #aaa;
+    border-radius: 6px;
+    padding: 4px 8px;
+    font-size: 0.8em;
+    cursor: pointer;
+    margin-left: 10px;
+  }
+  
