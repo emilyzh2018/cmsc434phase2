@@ -63,7 +63,7 @@ ul {
     font-size: 0.9em;
     padding: 5px 10px;
     cursor: pointer;
-    background-color: #a3c9ed;
+    background-color: #8ACDCF;
     border-radius: 9px;
 }
 
@@ -72,7 +72,7 @@ ul {
     align-items: center;
     /* gap: 100px; */
     justify-content: space-between;
-    outline: 3px solid black;
+    outline: 3px solid #707070;
 }
 
 #daily-tip-box p {
@@ -146,8 +146,9 @@ h1 {
     align-items: center;
     background-color: #E5EBFB;
     box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
-    outline: 3px solid black;
+    outline: 3px solid #707070;
 }
+
 
 .nav-item {
     display: flex;
