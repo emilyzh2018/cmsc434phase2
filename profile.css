@@ -3,6 +3,13 @@ body {
     font-size: 22px;
 }
 
+/* #popup {
+   outline: 3px black double;
+   border-width: 15px;
+   
+   
+} */
+
 .device {
     margin: auto;
     width: 640px;
