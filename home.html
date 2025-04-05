@@ -14,7 +14,7 @@
       <div>
         <div id="title-bar">
           <h1>MyFitness</h1>
-          <div id="profile-bar" onclick="showProfilePopup()">
+          <div id="profile-bar">
             <img src="images/profile.png" width="40px" />
             <span class="label">Profile</span>
           </div>
@@ -36,7 +36,7 @@
         </div>
         <div id="color-block">
           <ul>
-            <li>Walked 10K steps</li>
+            <li>You walked 10K steps</li>
             <li>You drank 7 cups of water today!</li>
             <li>You lost 2 pounds in 1 month!</li>
           </ul>
@@ -45,9 +45,16 @@
       <div id="recommended">
         <h2>Recommended Actions:</h2>
         <div class="gallery-nav">
-          <div class="gallery-item">Log Workout</div>
-          <div class="gallery-item">Log Food</div>
-          <div class="gallery-item">Learn Facts</div>
+          <div class="gallery-item">
+            Log Workout
+          </div>
+
+          <div class="gallery-item">
+              Log Food
+          </div>
+          <div class="gallery-item">
+            Learn Facts
+          </div>
         </div>
       </div>
       <hr />
@@ -62,92 +69,29 @@
         </div>
         <div class="nav-item active">
           <img src="images/home.png" alt="Home Icon" class="icon" />
+
           <span class="label">Home</span>
         </div>
         <div class="nav-item">
           <img src="images/apple-whole.png" alt="Nutrition Icon" class="icon" />
+
           <span class="label">Nutrition</span>
         </div>
         <div class="nav-item">
           <img src="images/users-medical.png" alt="Community Icon" class="icon" />
+
           <span class="label">Community</span>
         </div>
       </div>
     </div>
+  </body> 
+  <script> 
+      let profileButton = document.getElementById("profile-bar");
 
-    <!-- Profile Pop-Up -->
-    <div id="profile-popup" class="popup">
-      <div class="popup-content">
-        <span class="close-btn" onclick="hideProfilePopup()">×</span>
-        <h2>Profile</h2>
-        <div class="toggle-container">
-          <div class="unit-toggle" onclick="toggleUnits()">
-            <span id="imperial-label">Imperial: on</span> | <span id="metric-label">Metric: off</span>
-          </div>
-        </div>
-        <p><strong>Weight:</strong> <span id="weight-value">120 lbs</span></p>
-        <p><strong>Height:</strong> <span id="height-value">5'5" feet</span></p>
-        <p><strong>Sex:</strong> Female</p>
-        <p><strong>Age:</strong> 23 years</p>
-        <h3>Fitness Preferences</h3>
-        <!-- Wrap Fitness Preferences buttons in a new container -->
-        <div class="fitness-preferences">
-          <button>Weight loss</button>
-          <button>Muscle gain</button>
-          <button>Dieting</button>
-        </div>
-        <h3>Critical Health Info</h3>
-        <button>High Sugar</button>
-        <button>Low Calcium</button>
-        <button>High Cholesterol</button>
-        <div class="action-buttons popup-button-format">
-          <button class="action-btn">Set Workout Routine</button>
-          <button class="action-btn">Edit Data</button>
-          <button class="action-btn">Log out</button>
-        </div>
-      </div>
-    </div>
+      profileButton.addEventListener("click", () => {
+          // bring in pop up page
+          window.location.href = "profile.html";
+      });
 
-    <script>
-      let isImperial = true; // Default to Imperial system
-
-      function showProfilePopup() {
-        document.getElementById("profile-popup").style.display = "flex";
-      }
-
-      function hideProfilePopup() {
-        document.getElementById("profile-popup").style.display = "none";
-      }
-
-      function toggleUnits() {
-        isImperial = !isImperial;
-        const imperialLabel = document.getElementById("imperial-label");
-        const metricLabel = document.getElementById("metric-label");
-        const weightElement = document.getElementById("weight-value");
-        const heightElement = document.getElementById("height-value");
-
-        if (isImperial) {
-          imperialLabel.textContent = "Imperial: on";
-          imperialLabel.classList.add("active");
-          imperialLabel.classList.remove("inactive");
-          metricLabel.textContent = "Metric: off";
-          metricLabel.classList.add("inactive");
-          metricLabel.classList.remove("active");
-          weightElement.textContent = "120 lbs";
-          heightElement.textContent = "5'5\" feet";
-        } else {
-          imperialLabel.textContent = "Imperial: off";
-          imperialLabel.classList.add("inactive");
-          imperialLabel.classList.remove("active");
-          metricLabel.textContent = "Metric: on";
-          metricLabel.classList.add("active");
-          metricLabel.classList.remove("inactive");
-          const weightInKg = (120 * 0.453592).toFixed(1);
-          weightElement.textContent = `${weightInKg} kg`;
-          const heightInCm = (5 * 30.48 + 5 * 2.54).toFixed(1);
-          heightElement.textContent = `${heightInCm} cm`;
-        }
-      }
-    </script>
-  </body>
+  </script>
 </html>

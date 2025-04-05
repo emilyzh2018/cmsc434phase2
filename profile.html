@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Profile</title>
+    <link
+      href="https://fonts.googleapis.com/css?family=Inter"
+      rel="fontsheet"
+    />
+    <link rel="stylesheet" href="profile.css" />
+  </head>
+  <body>
+    <div class="device">
+    <div id="popup">
+      <div>
+        <div id="title-bar">
+          <h1>Profile</h1>
+          <div id="profile-bar">
+            <img src="images/profile.png" width="40px" />
+            <span class="label">Profile</span>
+          </div>
+        </div>
+
+        <div>
+            <p>
+                <strong>Weight: </strong> 120 lbs
+            </p>
+            <p>
+                <strong>Height:</strong> 5'5 feet
+            </p>
+            <p>
+                <strong>Sex:</strong> Female
+            </p>
+            <p>
+                <strong>Age:</strong> 23 years
+            </p>
+            <p>
+                <strong>Fitness Preferences</strong>
+            </p>
+            <div>
+                <div class="gallery-nav">
+                    <div class="gallery-item">
+                      Weight loss
+                    </div>
+          
+                    <div class="gallery-item">
+                      Muscle Gain
+                    </div>
+                    <div class="gallery-item">
+                      Dieting
+                    </div>
+                  </div>
+            </div>
+            <p>
+               <strong>Critical Health Info</strong>
+            </p>
+            <div>
+                <div class="gallery-nav">
+                    <div class="gallery-item">
+                      High Sugar
+                    </div>
+                    <div class="gallery-item">
+                      Low Calcium
+                    </div>
+                    <div class="gallery-item">
+                      High Cholestoral
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+      </div>
+      <div id="profile-buttons">
+        <div>
+          <button>Set Workout Routine</button>
+        </div>
+        <div>
+            <button>Edit Data</button>
+        </div>
+        <div>
+            <button>Log Out</button>
+        </div>
+      </div>
+      <!-- <div id="workout-popup" hidden>
+        dsfd
+      </div> -->
+
+
+      <div class="popup" id="popup">
+        <div class="popup-content">
+          <span class="close-btn" id="close-btn">&times;</span>
+          <h2>Set Your Routine</h2>
+          <form id="routine-form">
+            <label for="day">Select Day:</label>
+            <select id="day" name="day" required>
+              <option value="monday">Monday</option>
+              <option value="tuesday">Tuesday</option>
+              <option value="wednesday">Wednesday</option>
+              <option value="thursday">Thursday</option>
+              <option value="friday">Friday</option>
+              <option value="saturday">Saturday</option>
+              <option value="sunday">Sunday</option>
+            </select>
+            
+            <label for="time">Select Time:</label>
+            <input type="time" id="time" name="time" required>
+            
+            <button type="submit">Set Routine</button>
+          </form>
+        </div>
+      </div>
+
+
+
+
+
+
+      <hr />
+      <div class="bottom-nav">
+        <div class="nav-item">
+          <img src="images/insight.png" alt="Insight Icon" class="icon" />
+          <span class="label">Insights</span>
+        </div>
+        <div class="nav-item">
+          <img src="images/watch-fitness.png" alt="Fitness Icon" class="icon" />
+
+          <span class="label">Fitness</span>
+        </div>
+        <div class="nav-item active">
+          <img src="images/home.png" alt="Home Icon" class="icon" />
+
+          <span class="label">Home</span>
+        </div>
+        <div class="nav-item">
+          <img src="images/apple-whole.png" alt="Nutrition Icon" class="icon" />
+
+          <span class="label">Nutrition</span>
+        </div>
+        <div class="nav-item">
+          <img src="images/users-medical.png" alt="Community Icon" class="icon" />
+
+          <span class="label">Community</span>
+        </div>
+      </div>
+    </div>
+  </body> 
+  <script> 
+      let profileButton = document.getElementById("profile-bar");
+
+      profileButton.addEventListener("click", () => {
+          // bring in pop up page
+          window.location.href = "home.html";
+      });
+
+  </script>
+</html>
