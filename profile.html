@@ -139,7 +139,7 @@
       openWorkoutBtn.addEventListener("click", () => {
         workoutPopup.innerHTML = `<div class="popup-overlay" id="workout-popup" hidden>
           <div class="popup-content">
-            <span class="close-btn" id="close-popup-btn">&times;</span>
+            <span class="close-btn" id="close-popup-btn">X</span>
             <h2>Set Your Workout Routine</h2>
             <form id="routine-form">
               <label for="day">Select Day:</label>
@@ -164,19 +164,19 @@
             </form>
           </div>
         </div>`;
-      });
 
-      const closeWorkoutBtn = document.getElementById("close-popup-btn");
+        const closeWorkoutBtn = document.getElementById("close-popup-btn");
 
-      closeWorkoutBtn.addEventListener("click", () => {
-        workoutPopup.innerHTML = ``;
-      });
-
-
-      workoutPopup.addEventListener("click", (e) => {
-        if (e.target === workoutPopup) {
+        closeWorkoutBtn.addEventListener("click", () => {
           workoutPopup.innerHTML = ``;
-        }
+        });
+
+
+        // workoutPopup.addEventListener("click", (e) => {
+        //   if (e.target === workoutPopup) {
+        //     workoutPopup.innerHTML = ``;
+        //   }
+        // });
       });
 
 
