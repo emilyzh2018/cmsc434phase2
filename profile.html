@@ -22,11 +22,11 @@
         </div>
 
         <div>
-            <p>
-                <strong>Weight: </strong> 120 lbs
+            <p id="weight">
+                <strong>Weight: </strong> <span id="weight-value">120 lbs</span>
             </p>
-            <p>
-                <strong>Height:</strong> 5'5 feet
+            <p id="height">
+                <strong>Height:</strong> <span id="height-value">5'5 feet</span>
             </p>
             <p>
                 <strong>Sex:</strong> Female
@@ -34,6 +34,15 @@
             <p>
                 <strong>Age:</strong> 23 years
             </p>
+
+            <div id="unit-holder">
+              <div class="unit-toggle-box">
+                <div id="metricBox" class="unit-box active">Metric</div>
+                <div id="imperialBox" class="unit-box">Imperial</div>
+              </div>
+            </div>
+
+
             <p>
                 <strong>Fitness Preferences</strong>
             </p>
@@ -77,9 +86,9 @@
         <div>
             <button>Edit Data</button>
         </div>
-        <div>
+        <!-- <div>
             <button>Log Out</button>
-        </div>
+        </div> -->
       </div>
       <!-- <div id="workout-popup" hidden>
         dsfd
@@ -134,7 +143,38 @@
       const openWorkoutBtn = document.querySelector("#profile-buttons button"); 
       //const closeWorkoutBtn = document.getElementById("close-popup-btn");
       
+      const imperial = document.getElementById("imperialBox");
+      const metric = document.getElementById("metricBox");
+      const weight = document.getElementById("weight-value");
+      const height = document.getElementById("height-value");
 
+      imperial.addEventListener("click", () => {
+          imperial.className = "unit-box active";
+          metric.className = "unit-box";
+
+          let currWeight = weight.innerText;
+          let currHeight = height.innerText;
+
+          let number = currWeight.match(/[\d\.]+/);
+
+          let heightNumber = currHeight.match(/[1-8]'[0-11]\.[0-9]?/);
+
+
+
+          // <strong>Weight: </strong> 120 lbs
+
+          // <strong>Height:</strong> 5'5 feet
+
+
+      });
+
+      metric.addEventListener("click", () => {
+          metric.className = "unit-box active";
+          imperial.className = "unit-box";
+      });
+
+    
+      
 
       openWorkoutBtn.addEventListener("click", () => {
         workoutPopup.innerHTML = `<div class="popup-overlay" id="workout-popup" hidden>
@@ -165,32 +205,30 @@
           </div>
         </div>`;
 
+
+
         const closeWorkoutBtn = document.getElementById("close-popup-btn");
 
         closeWorkoutBtn.addEventListener("click", () => {
           workoutPopup.innerHTML = ``;
         });
 
+        const form = document.getElementById("routine-form");
 
-        // workoutPopup.addEventListener("click", (e) => {
-        //   if (e.target === workoutPopup) {
-        //     workoutPopup.innerHTML = ``;
-        //   }
-        // });
+        form.addEventListener("submit", (e) => {
+          e.preventDefault();
+
+          const formInfo = new FormData(form);
+
+          const data = {};
+          formInfo.forEach((value, key) => {
+            data[key] = value; 
+          });
+
+          
+
+          localStorage.setItem(`profileInfo${data["day"]}`, JSON.stringify(data));
+        });
       });
-
-
-    //   document.getElementById("routine-form").addEventListener("submit", (e) => {
-    //   e.preventDefault();
-    //   const day = document.getElementById("day").value;
-    //   const time = document.getElementById("time").value;
-    //   const activity = document.getElementById("activity").value;
-    //   alert(`Workout Set!\nDay: ${day}\nTime: ${time}\nActivity: ${activity}`);
-    //   workoutPopup.innerText = "";
-    // });
-
-
-
-
   </script>
 </html>
