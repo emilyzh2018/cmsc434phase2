@@ -302,3 +302,33 @@ h3 {
     font-size: 24px;
     cursor: pointer;
   }
+
+
+
+  #unit-holder {
+    display: flex;
+    justify-content: center;
+  }
+
+  .unit-toggle-box {
+    display: flex;
+    text-align: center;
+  }
+  
+  .unit-box {
+    padding: 10px 20px;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    cursor: pointer;
+    user-select: none;
+  }
+  
+  .unit-box:hover {
+    background-color: #f0f0f0;
+  }
+  
+  .unit-box.active {
+    background-color: #4caf50;
+    color: white;
+    border-color: #4caf50;
+  }
