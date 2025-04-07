@@ -148,29 +148,64 @@
       const weight = document.getElementById("weight-value");
       const height = document.getElementById("height-value");
 
+      let currWeight = weight.innerText;
+      let currHeight = height.innerText;
+
+
+
       imperial.addEventListener("click", () => {
           imperial.className = "unit-box active";
           metric.className = "unit-box";
 
-          let currWeight = weight.innerText;
-          let currHeight = height.innerText;
+          let weightNumber = currWeight.match(/[\d\.]+/);
 
-          let number = currWeight.match(/[\d\.]+/);
-
-          let heightNumber = currHeight.match(/[1-8]'[0-11]\.[0-9]?/);
+          let heightNumber = currHeight.match(/[\d\.]+/);
 
 
+          let totalFeet = 0;
+          let totalInches = 0; 
 
-          // <strong>Weight: </strong> 120 lbs
+          if (heightNumber) {
+            let feet = parseInt(heightNumber[1]);
+            let inches = parseFloat(heightNumber[2]);
 
-          // <strong>Height:</strong> 5'5 feet
+            totalInches = (feet * 12) + inches;
+          }
 
+          let weightValue = parseFloat(weightNumber);
+
+          let totalCm = totalInches * 2.54; 
+
+          let totalKg = weightValue * 0.453592;
 
       });
 
       metric.addEventListener("click", () => {
           metric.className = "unit-box active";
           imperial.className = "unit-box";
+
+          let weightNumber = currWeight.match(/[\d\.]+/);
+
+          let heightNumber = currHeight.match(/([1-8])'([0-11]\.[0-9]?)/);
+
+
+          let totalInches = 0;
+
+          if (heightNumber) {
+            let feet = parseInt(heightNumber[1]);
+            let inches = parseFloat(heightNumber[2]);
+
+            totalInches = (feet * 12) + inches;
+          }
+
+          let weightValue = parseFloat(weightNumber);
+
+          let totalCm = totalInches * 2.54; 
+
+          let totalKg = weightValue * 0.453592;
+
+
+
       });
 
     
