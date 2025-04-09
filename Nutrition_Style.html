@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=640, initial-scale=1.0" />
+  <title>Nutrition Tracking</title>
+  <link rel="stylesheet" href="Nutrition_Style.css" />
+</head>
+<body>
+    <div class="device">
+      <!-- Header -->
+      <div id="title-bar">
+        <h1>Nutrition Tracker</h1>
+      </div>
+      
+      <div id="color-block">
+        <h3 style="text-align: center;">Log calories and/or macros:</h3>
+        <div class="log-input">
+          <label>Input Manually</label>
+          <a href="log-entry.html"><button class="small-btn" type="button">+</button></a>
+        </div>
+        
+      </div>
+      
+
+  
+  <!-- Nutrition Summary -->
+  <div class="summary-box">
+    <h3>Your Nutrition Summary 
+    </h3>
+  
+    <div class="summary-item">
+      <label id="calorieLabel">Total Calories:</label>
+      <progress id="calorieBar" value="1012" max="1500" style="accent-color:#4A90E2"></progress>
+    </div>
+    
+    <div class="summary-item">
+      <label id="sugarLabel">Sugar:</label>
+      <progress id="sugarBar" value="20" max="25" style="accent-color: #4A90E2"></progress>
+    </div>
+    
+    <div class="summary-item warning">
+      <label id="fatLabel">Saturated Fat:</label>
+      <progress id="fatBar" value="5" max="3" style="accent-color: #E94E77;"></progress>
+    </div>
+    
+    <div class="summary-item warning">
+      <label id="caffeineLabel">Caffeine:</label>
+      <progress id="caffeineBar" value="183" max="100" style="accent-color: #E94E77;"></progress>
+    </div>
+    
+  
+  </div>
+
+  
+
+  <div class="legend">
+    <p><span class="legend-box normal"></span> Within Limits</p>
+    <p><span class="legend-box high"></span> Exceeds Limit</p>
+  </div>
+  
+  
+  <div class="gallery-nav">
+    <div class="gallery-item">
+      <a href="goals.html" style="text-decoration: none; color: inherit;">
+        <strong>Set Your Daily Nutrition Goals</strong>
+      </a>
+    </div>
+  </div>
+  
+  
+  <details class="gallery-nav">
+    <summary class="gallery-item">View Entries</summary>
+    <div class="gallery-content">
+      <p>
+        <a href="entries.html" style="text-decoration: none; color: inherit;">
+          📋 View your previous entries
+        </a>
+      </p>
+    </div>
+  </details>
+
+
+      <!-- Bottom Navigation -->
+      <div class="bottom-nav">
+        <div class="nav-item">
+          <img src="images/insight.png" alt="Insight Icon" class="icon" />
+          <span class="label">Insights</span>
+        </div>
+        <div class="nav-item">
+          <img src="images/watch-fitness.png" alt="Fitness Icon" class="icon" />
+          <span class="label">Fitness</span>
+        </div>
+        <div class="nav-item">
+          <img src="images/home.png" alt="Home Icon" class="icon" />
+          <span class="label">Home</span>
+        </div>
+        <div class="nav-item active">
+          <img src="images/apple-whole.png" alt="Nutrition Icon" class="icon" />
+          <span class="label">Nutrition</span>
+        </div>
+        <div class="nav-item">
+          <img src="images/users-medical.png" alt="Community Icon" class="icon" />
+          <span class="label">Community</span>
+        </div>
+      </div>
+
+<script src="Nutrition_Style.js"></script>
+</body>
+</html>
