@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Home</title>
+    <link
+      href="https://fonts.googleapis.com/css?family=Inter"
+      rel="fontsheet"
+    />
+    <link rel="stylesheet" href="home.css" />
+  </head>
+  <body>
+    <div class="device">
+      <div>
+        <div id="title-bar">
+          <h1>MyFitness</h1>
+          <div id="profile-bar">
+            <img src="images/profile.png" width="40px" />
+            <span class="label">Profile</span>
+          </div>
+        </div>
+        <div>
+          <strong><h1>Good Morning Alice!</h1></strong>
+          <div id="daily-tip">
+            <h3>Daily Tip</h3>
+            <img src="images/brightness.png" width="40px" />
+          </div>
+          <div id="daily-tip-box">Don't forget to drink your water!</div>
+        </div>
+      </div>
+
+      <div id="accomplishments">
+        <div id="accomp-title">
+          <h2>Your Accomplishments Today</h2>
+          <img src="images/party-horn.png" width="40px" />
+        </div>
+        <div id="color-block">
+          <ul>
+            <li>You walked 10K steps</li>
+            <li>You drank 7 cups of water today!</li>
+            <li>You lost 2 pounds in 1 month!</li>
+          </ul>
+        </div>
+      </div>
+      <div id="recommended">
+        <h2>Recommended Actions:</h2>
+        <div class="gallery-nav">
+          
+          <a href="healthTracker.html" id="workout-link">
+            <div class="gallery-item">
+              Log Workout
+            </div>
+          </a>
+          
+          <a href="Nutrition_Style.html" id="food-link">
+            <div class="gallery-item">
+              Log Food
+            </div>
+          </a>
+          
+          <div id="fact-link">
+            <div class="gallery-item">
+              Learn Facts
+            </div>
+          </div>
+          
+        </div>
+      </div>
+      <hr />
+      <div class="bottom-nav">
+        <div class="nav-item">
+          <a href="home.html">
+          <img src="images/insight.png" alt="Insight Icon" class="icon" />
+          <span class="label">Insights</span>
+          </a>
+        </div>
+        <div class="nav-item">
+          <a href="healthTracker.html">
+          <img src="images/watch-fitness.png" alt="Fitness Icon" class="icon" />
+          <span class="label">Fitness</span>
+        </a>
+        </div>
+        <div class="nav-item active">
+          <a href="home.html">
+            <img src="images/home.png" alt="Home Icon" class="icon" />
+            <span class="label">Home</span>
+          </a>
+        </div>
+        <div class="nav-item">
+          <a href="Nutrition_Style.html">
+          <img src="images/apple-whole.png" alt="Nutrition Icon" class="icon" />
+          <span class="label">Nutrition</span>
+          </a>
+        </div>
+        <div class="nav-item">
+          <a href="home.html">
+          <img src="images/users-medical.png" alt="Community Icon" class="icon" />
+          <span class="label">Community</span>
+        </a>
+        </div>
+      </div>
+    </div>
+  </body> 
+  <script> 
+      let profileButton = document.getElementById("profile-bar");
+
+      profileButton.addEventListener("click", () => {
+          // bring in pop up page
+          window.location.href = "profile.html";
+      });
+
+  </script>
+</html>

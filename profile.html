@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Profile</title>
+    <link
+      href="https://fonts.googleapis.com/css?family=Inter"
+      rel="fontsheet"
+    />
+    <link rel="stylesheet" href="profile.css" />
+  </head>
+  <body>
+    <div class="device">
+    <div id="popup">
+      <div>
+        <div id="title-bar">
+          <h1>Profile</h1>
+          <div id="profile-bar">
+            <img src="images/profile.png" width="40px" />
+            <span class="label">Profile</span>
+          </div>
+        </div>
+
+        <div>
+            <p id="weight">
+                <strong>Weight: </strong> <span id="weight-value">120 lbs</span>
+            </p>
+            <p id="height">
+                <strong>Height:</strong> <span id="height-value">5'5 feet</span>
+            </p>
+            <p>
+                <strong>Sex:</strong> Female
+            </p>
+            <p>
+                <strong>Age:</strong> 23 years
+            </p>
+
+            <div id="unit-holder">
+              <div class="unit-toggle-box">
+                <div id="imperialBox" class="unit-box active">Imperial</div>
+                <div id="metricBox" class="unit-box">Metric</div>
+              </div>
+            </div>
+
+
+            <p>
+                <strong>Fitness Preferences</strong>
+            </p>
+            <div>
+                <div class="gallery-nav">
+                    <div class="gallery-item">
+                      Weight loss
+                    </div>
+          
+                    <div class="gallery-item">
+                      Muscle Gain
+                    </div>
+                    <div class="gallery-item">
+                      Dieting
+                    </div>
+                  </div>
+            </div>
+            <p>
+               <strong>Critical Health Info</strong>
+            </p>
+            <div>
+                <div class="gallery-nav">
+                    <div class="gallery-item">
+                      High Sugar
+                    </div>
+                    <div class="gallery-item">
+                      Low Calcium
+                    </div>
+                    <div class="gallery-item">
+                      High Cholestoral
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+      </div>
+      <div id="profile-buttons">
+        <div>
+          <button id="set-button">Set Workout Routine</button>
+        </div>
+        <div>
+            <button>Edit Data</button>
+        </div>
+        <!-- <div>
+            <button>Log Out</button>
+        </div> -->
+      </div>
+      <!-- <div id="workout-popup" hidden>
+        dsfd
+      </div> -->
+
+      <div id="popup-holder-div">
+      </div>
+
+
+
+
+
+
+      <hr />
+      <div class="bottom-nav">
+        <div class="nav-item">
+          <img src="images/insight.png" alt="Insight Icon" class="icon" />
+          <span class="label">Insights</span>
+        </div>
+        <div class="nav-item">
+          <img src="images/watch-fitness.png" alt="Fitness Icon" class="icon" />
+
+          <span class="label">Fitness</span>
+        </div>
+        <div class="nav-item active">
+          <img src="images/home.png" alt="Home Icon" class="icon" />
+
+          <span class="label">Home</span>
+        </div>
+        <div class="nav-item">
+          <img src="images/apple-whole.png" alt="Nutrition Icon" class="icon" />
+
+          <span class="label">Nutrition</span>
+        </div>
+        <div class="nav-item">
+          <img src="images/users-medical.png" alt="Community Icon" class="icon" />
+
+          <span class="label">Community</span>
+        </div>
+      </div>
+    </div>
+  </body> 
+  <script> 
+      let profileButton = document.getElementById("profile-bar");
+
+      profileButton.addEventListener("click", () => {
+          // bring in pop up page
+          window.location.href = "home.html";
+      });
+
+      const workoutPopup = document.getElementById("popup-holder-div");
+      const openWorkoutBtn = document.querySelector("#profile-buttons button"); 
+      //const closeWorkoutBtn = document.getElementById("close-popup-btn");
+      
+      const imperial = document.getElementById("imperialBox");
+      const metric = document.getElementById("metricBox");
+      const weight = document.getElementById("weight-value");
+      const height = document.getElementById("height-value");
+
+      let currWeight = weight.innerText;
+      let currHeight = height.innerText;
+
+
+
+      imperial.addEventListener("click", () => {
+          if (imperial.className != "unit-box active") {
+            imperial.className = "unit-box active";
+            metric.className = "unit-box";
+
+            let weightNumber = currWeight.match(/([0-9]+)\.((\d)*)/);
+            let heightNumber = currHeight.match(/([0-9]+(\.(\d)*)?)/);
+
+            console.log(weightNumber);
+            console.log(heightNumber);
+
+            let totalFeet = 0;
+            let totalInches = 0; 
+
+            if (heightNumber) {
+              let cms = parseFloat(heightNumber[1]);
+
+              totalInches = cms * 0.393701;
+            }
+
+            
+            totalFeet = Math.floor(totalInches / 12);
+            totalInches = (totalInches % 12).toFixed(0);
+
+
+            let weightValue = parseFloat(weightNumber);
+            let totalLbs = Math.ceil(weightValue * 2.20462);
+
+
+            weight.innerText = `${totalLbs} lbs`;
+            height.innerText = `${totalFeet}'${totalInches} feet`;
+
+            currWeight = weight.innerText;
+            currHeight = height.innerText;
+
+        }
+
+      });
+
+      metric.addEventListener("click", () => {
+        if (metric.className != "unit-box active") {
+            metric.className = "unit-box active";
+            imperial.className = "unit-box";
+
+            let weightNumber = currWeight.match(/([0-9]+(\.[0-9]+)?)/);
+
+            let heightNumber = currHeight.match(/([0-8])'([0-9](\.[0-9])?)/);
+
+
+            // console.log(heightNumber);
+            // console.log(weightNumber);
+          
+
+            let totalInches = 0;
+
+            if (heightNumber) {
+              let feet = parseInt(heightNumber[1]);
+              let inches = parseFloat(heightNumber[2]);
+
+              // console.log(feet);
+              // console.log(inches);
+
+              totalInches = (feet * 12) + inches;
+
+              
+            }
+
+            let weightValue = parseFloat(weightNumber);
+
+            let totalCm = (totalInches * 2.54).toFixed(2); 
+
+            let totalKg = (weightValue * 0.453592).toFixed(2);
+
+            weight.innerText = `${totalKg} kg`;
+            height.innerText = `${totalCm} cm`;
+
+            currWeight = weight.innerText;
+            currHeight = height.innerText;
+        }
+
+      });
+
+    
+      
+
+      openWorkoutBtn.addEventListener("click", () => {
+        workoutPopup.innerHTML = `<div class="popup-overlay" id="workout-popup" hidden>
+          <div class="popup-content">
+            <span class="close-btn" id="close-popup-btn">X</span>
+            <h2>Set Your Workout Routine</h2>
+            <form id="routine-form">
+              <label for="day">Select Day:</label>
+              <select id="day" name="day" required>
+                <option value="" disabled selected>Select a day</option>
+                <option value="monday">Monday</option>
+                <option value="tuesday">Tuesday</option>
+                <option value="wednesday">Wednesday</option>
+                <option value="thursday">Thursday</option>
+                <option value="friday">Friday</option>
+                <option value="saturday">Saturday</option>
+                <option value="sunday">Sunday</option>
+              </select>
+        
+              <label for="time">Select Time:</label>
+              <input type="time" id="time" name="time" required />
+        
+              <label for="activity">Workout Type:</label>
+              <input type="text" id="activity" name="activity" placeholder="e.g. Cardio, Yoga" required />
+        
+              <button type="submit">Set Routine</button>
+            </form>
+          </div>
+        </div>`;
+
+
+
+        const closeWorkoutBtn = document.getElementById("close-popup-btn");
+
+        closeWorkoutBtn.addEventListener("click", () => {
+          workoutPopup.innerHTML = ``;
+        });
+
+        const form = document.getElementById("routine-form");
+
+        form.addEventListener("submit", (e) => {
+          e.preventDefault();
+
+          const formInfo = new FormData(form);
+
+          const data = {};
+          formInfo.forEach((value, key) => {
+            data[key] = value; 
+          });
+
+          
+
+          localStorage.setItem(`profileInfo${data["day"]}`, JSON.stringify(data));
+        });
+      });
+  </script>
+</html>
