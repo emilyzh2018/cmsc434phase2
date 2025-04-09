@@ -161,6 +161,12 @@ h1 {
 
 } */
 
+.gallery-nav a {
+  text-decoration: none;
+  color: black;
+}
+
+
 .nav-item a {
     display: flex;
     flex-direction: column;
