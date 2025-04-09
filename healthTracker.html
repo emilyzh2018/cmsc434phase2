@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=640, initial-scale=1.0" />
   <title>Health Tracking</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css?family=Inter" rel="stylesheet" />
   <link rel="stylesheet" href="healthTracker.css" />
 </head>
 <body>
@@ -15,10 +15,10 @@
       </div>
 
       <div id="color-block">
-        <ul>
-          <strong>Workout Routine of the Day</strong> <button class="small-btn">Edit</button></li>
-          <li><input type="checkbox" /> Pushups - 3 sets</li>
-          <li><input type="checkbox" /> Squats - 3 sets</li>
+        <strong>Workout Routine of the Day</strong>
+        <button class="small-btn" id="edit-routine-btn">Edit</button>
+        <ul id="routine-list">
+         
         </ul>
       </div>
 
@@ -33,7 +33,7 @@
       <div class="button-row">
         <div class="button-with-plus">
           <button class="gallery-item" id="open-pr-modal">Workout Personal Records</button>
-          <button class="small-btn add-btn" id="add-pr-btn">+</button>
+          <button class="add-btn-large" id="add-pr-btn">+</button>
         </div>
         <button class="gallery-item" id="open-trends-modal">Trends</button>
       </div>
@@ -70,6 +70,50 @@
           <input type="text" id="pr-exercise" placeholder="Exercise" />
           <input type="text" id="pr-value" placeholder="Value" />
           <button class="small-btn" id="submit-pr">Submit</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal" id="routine-modal">
+      <div class="modal-content">
+        <span class="close-btn" id="close-routine-modal">×</span>
+        <h3>Create/Edit Workout Routine</h3>
+        <div class="input-form">
+          <input type="text" id="routine-name" placeholder="Routine Name" />
+          <div id="current-exercises-list"></div> 
+          <button class="small-btn" id="add-exercise-btn">Add Exercise</button>
+          <button class="small-btn" id="save-routine-btn">Save Routine</button>
+        </div>
+        <h3 style="margin-top: 20px;">Past Routines</h3>
+        <div id="past-routines">
+         
+        </div>
+      </div>
+    </div>
+
+    <div class="modal" id="exercise-input-modal">
+      <div class="modal-content">
+        <span class="close-btn" id="close-exercise-input-modal">×</span>
+        <h3>Add Exercise</h3>
+        <div class="input-form">
+          <input type="text" id="exercise-name" placeholder="Exercise" />
+          <input type="text" id="exercise-sets" placeholder="Sets (e.g., 3 sets)" />
+          <button class="small-btn" id="submit-exercise">Submit</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal" id="edit-routine-modal">
+      <div class="modal-content">
+        <span class="close-btn" id="close-edit-routine-modal">×</span>
+        <h3>Edit Routine</h3>
+        <div class="input-form">
+          <input type="text" id="edit-routine-name" placeholder="Routine Name" />
+          <h4>Exercises</h4>
+          <div id="edit-exercises-list"></div>
+          <button class="small-btn" id="edit-add-exercise-btn">Add Exercise</button>
+          <button class="small-btn" id="save-edited-routine-btn">Save Changes</button>
+          <button class="small-btn apply-btn" id="apply-edited-routine-btn">Apply Routine</button>
         </div>
       </div>
     </div>
@@ -112,6 +156,25 @@
     const submitPR = document.getElementById("submit-pr");
     const prGallery = document.getElementById("pr-gallery");
     const mainContent = document.getElementById('main-content');
+    const routineModal = document.getElementById("routine-modal");
+    const closeRoutineModal = document.getElementById("close-routine-modal");
+    const addExerciseBtn = document.getElementById("add-exercise-btn");
+    const saveRoutineBtn = document.getElementById("save-routine-btn");
+    const routineNameInput = document.getElementById("routine-name");
+    const pastRoutinesDiv = document.getElementById("past-routines");
+    const exerciseInputModal = document.getElementById("exercise-input-modal");
+    const closeExerciseInputModal = document.getElementById("close-exercise-input-modal");
+    const submitExerciseBtn = document.getElementById("submit-exercise");
+    const editRoutineBtn = document.getElementById("edit-routine-btn");
+    const routineList = document.getElementById("routine-list");
+    const editRoutineModal = document.getElementById("edit-routine-modal");
+    const closeEditRoutineModal = document.getElementById("close-edit-routine-modal");
+    const editRoutineNameInput = document.getElementById("edit-routine-name");
+    const editExercisesList = document.getElementById("edit-exercises-list");
+    const editAddExerciseBtn = document.getElementById("edit-add-exercise-btn");
+    const saveEditedRoutineBtn = document.getElementById("save-edited-routine-btn");
+    const applyEditedRoutineBtn = document.getElementById("apply-edited-routine-btn");
+    const currentExercisesList = document.getElementById("current-exercises-list");
 
     function openModal(modal) {
       modal.style.display = "block";
@@ -134,9 +197,11 @@
       if (event.target === prModal) closeModal(prModal);
       if (event.target === trendsModal) closeModal(trendsModal);
       if (event.target === prInputModal) closeModal(prInputModal);
+      if (event.target === routineModal) closeModal(routineModal);
+      if (event.target === exerciseInputModal) closeModal(exerciseInputModal);
+      if (event.target === editRoutineModal) closeModal(editRoutineModal);
     };
 
-  
     submitPR.onclick = () => {
       const exercise = document.getElementById("pr-exercise").value;
       const value = document.getElementById("pr-value").value;
@@ -150,6 +215,191 @@
         closeModal(prInputModal);
       }
     };
+
+
+    let pastRoutines = [
+      
+    ];
+    let currentRoutine = { name: "", exercises: [] };
+    let selectedRoutineIndex = null;
+
+    function renderPastRoutines() {
+      pastRoutinesDiv.innerHTML = "";
+      pastRoutines.forEach((routine, index) => {
+        const routineDiv = document.createElement("div");
+        routineDiv.className = "past-routine-item";
+        routineDiv.innerHTML = `
+          <span>${routine.name}</span>
+          <button class="small-btn apply-btn" data-index="${index}">select</button>
+          <button class="delete-btn" data-index="${index}">Delete</button>
+        `;
+        pastRoutinesDiv.appendChild(routineDiv);
+      });
+
+      document.querySelectorAll(".apply-btn").forEach((btn) => {
+        btn.addEventListener("click", (e) => {
+          const index = e.target.getAttribute("data-index");
+          openEditRoutineModal(index);
+        });
+      });
+
+      document.querySelectorAll(".delete-btn").forEach((btn) => {
+        btn.addEventListener("click", (e) => {
+          const index = e.target.getAttribute("data-index");
+          deleteRoutine(index);
+        });
+      });
+    }
+
+    function openEditRoutineModal(index) {
+      selectedRoutineIndex = index;
+      const routine = pastRoutines[index];
+      editRoutineNameInput.value = routine.name;
+      renderEditExercises(routine.exercises);
+      openModal(editRoutineModal);
+    }
+
+    function renderEditExercises(exercises) {
+      editExercisesList.innerHTML = "";
+      exercises.forEach((ex, idx) => {
+        const exerciseDiv = document.createElement("div");
+        exerciseDiv.className = "exercise-item";
+        exerciseDiv.innerHTML = `
+          <span>${ex.exercise} - ${ex.sets}</span>
+          <button class="delete-btn" data-exercise-index="${idx}">Delete</button>
+        `;
+        editExercisesList.appendChild(exerciseDiv);
+      });
+
+      document.querySelectorAll("#edit-exercises-list .delete-btn").forEach((btn) => {
+        btn.addEventListener("click", (e) => {
+          const exerciseIndex = e.target.getAttribute("data-exercise-index");
+          pastRoutines[selectedRoutineIndex].exercises.splice(exerciseIndex, 1);
+          renderEditExercises(pastRoutines[selectedRoutineIndex].exercises);
+        });
+      });
+    }
+
+    function renderCurrentExercises() {
+      currentExercisesList.innerHTML = "";
+      if (currentRoutine.exercises.length > 0) {
+        const exercisesHeader = document.createElement("h4");
+        exercisesHeader.textContent = "Exercises";
+        currentExercisesList.appendChild(exercisesHeader);
+
+        currentRoutine.exercises.forEach((ex, idx) => {
+          const exerciseDiv = document.createElement("div");
+          exerciseDiv.className = "exercise-item";
+          exerciseDiv.innerHTML = `
+            <span>${ex.exercise} - ${ex.sets}</span>
+            <button class="delete-btn" data-exercise-index="${idx}">Delete</button>
+          `;
+          currentExercisesList.appendChild(exerciseDiv);
+        });
+
+        document.querySelectorAll("#current-exercises-list .delete-btn").forEach((btn) => {
+          btn.addEventListener("click", (e) => {
+            const exerciseIndex = e.target.getAttribute("data-exercise-index");
+            currentRoutine.exercises.splice(exerciseIndex, 1);
+            renderCurrentExercises();
+          });
+        });
+      }
+    }
+
+    function applyRoutine(routine) {
+      routineList.innerHTML = "";
+      routine.exercises.forEach((ex) => {
+        const li = document.createElement("li");
+        li.innerHTML = `<input type="checkbox" /> ${ex.exercise} - ${ex.sets}`;
+        routineList.appendChild(li);
+      });
+      closeModal(editRoutineModal);
+      closeModal(routineModal);
+    }
+
+    function deleteRoutine(index) {
+      pastRoutines.splice(index, 1);
+      renderPastRoutines();
+    }
+
+    editRoutineBtn.addEventListener("click", () => {
+      openModal(routineModal);
+    });
+
+    closeRoutineModal.addEventListener("click", () => {
+      closeModal(routineModal);
+      currentRoutine = { name: "", exercises: [] };
+      routineNameInput.value = "";
+      renderCurrentExercises(); 
+    });
+
+    addExerciseBtn.addEventListener("click", () => {
+      openModal(exerciseInputModal);
+    });
+
+    closeExerciseInputModal.addEventListener("click", () => {
+      closeModal(exerciseInputModal);
+    });
+
+    submitExerciseBtn.addEventListener("click", () => {
+      const exercise = document.getElementById("exercise-name").value;
+      const sets = document.getElementById("exercise-sets").value;
+      if (exercise && sets) {
+        currentRoutine.exercises.push({ exercise, sets });
+        document.getElementById("exercise-name").value = "";
+        document.getElementById("exercise-sets").value = "";
+        closeModal(exerciseInputModal);
+        renderCurrentExercises(); 
+      }
+    });
+
+    saveRoutineBtn.addEventListener("click", () => {
+      const routineName = routineNameInput.value;
+      if (routineName && currentRoutine.exercises.length > 0) {
+        pastRoutines.push({ name: routineName, exercises: [...currentRoutine.exercises] });
+        currentRoutine = { name: "", exercises: [] };
+        routineNameInput.value = "";
+        renderCurrentExercises(); 
+        renderPastRoutines();
+      }
+    });
+
+    closeEditRoutineModal.addEventListener("click", () => {
+      closeModal(editRoutineModal);
+      selectedRoutineIndex = null;
+    });
+
+    editAddExerciseBtn.addEventListener("click", () => {
+      openModal(exerciseInputModal);
+      submitExerciseBtn.onclick = () => {
+        const exercise = document.getElementById("exercise-name").value;
+        const sets = document.getElementById("exercise-sets").value;
+        if (exercise && sets) {
+          pastRoutines[selectedRoutineIndex].exercises.push({ exercise, sets });
+          renderEditExercises(pastRoutines[selectedRoutineIndex].exercises);
+          document.getElementById("exercise-name").value = "";
+          document.getElementById("exercise-sets").value = "";
+          closeModal(exerciseInputModal);
+        }
+      };
+    });
+
+    saveEditedRoutineBtn.addEventListener("click", () => {
+      const newName = editRoutineNameInput.value;
+      if (newName && pastRoutines[selectedRoutineIndex].exercises.length > 0) {
+        pastRoutines[selectedRoutineIndex].name = newName;
+        renderPastRoutines();
+        closeModal(editRoutineModal);
+      }
+    });
+
+    applyEditedRoutineBtn.addEventListener("click", () => {
+      const routine = pastRoutines[selectedRoutineIndex];
+      applyRoutine(routine);
+    });
+
+    renderPastRoutines();
   </script>
-</body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'92d57fc7c83f4533',t:'MTc0NDE1NDQ2Ni4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
