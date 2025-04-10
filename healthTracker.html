@@ -41,7 +41,7 @@
             <button class="small-btn" id="save-goal">Save Goal</button>
           </div>
         </div>
-        <!-- Modal to update goal progress -->
+       
 <div class="modal" id="progress-modal">
   <div class="modal-content">
     <span class="close-btn" id="close-progress-modal">×</span>
@@ -124,6 +124,7 @@
         </div>
       </div>
     </div>
+    
 
     <div class="modal" id="edit-routine-modal">
       <div class="modal-content">
@@ -183,6 +184,8 @@
 
 
     const body = document.body;
+    let isEditingRoutine = false;
+
     const prModal = document.getElementById("pr-modal");
     const openPR = document.getElementById("open-pr-modal");
     const closePR = document.getElementById("close-pr-modal");
@@ -385,7 +388,7 @@ let pastRoutines = JSON.parse(localStorage.getItem("pastRoutines")) || [];
     li.innerHTML = `<input type="checkbox" /> ${ex.exercise} - ${ex.sets}`;
     routineList.appendChild(li);
   });
-  localStorage.setItem("currentRoutine", JSON.stringify(routine)); // Save selected
+  localStorage.setItem("currentRoutine", JSON.stringify(routine)); 
   closeModal(editRoutineModal);
   closeModal(routineModal);
 }
@@ -393,7 +396,7 @@ let pastRoutines = JSON.parse(localStorage.getItem("pastRoutines")) || [];
 
 function deleteRoutine(index) {
   pastRoutines.splice(index, 1);
-  localStorage.setItem("pastRoutines", JSON.stringify(pastRoutines)); // Sync
+  localStorage.setItem("pastRoutines", JSON.stringify(pastRoutines)); 
   renderPastRoutines();
 }
 
@@ -410,30 +413,40 @@ function deleteRoutine(index) {
     });
 
     addExerciseBtn.addEventListener("click", () => {
+      isEditingRoutine = false;
+      exerciseInputModal.classList.remove("on-top"); 
       openModal(exerciseInputModal);
     });
 
+
     closeExerciseInputModal.addEventListener("click", () => {
-      closeModal(exerciseInputModal);
-    });
+  exerciseInputModal.classList.remove("on-top");
+  closeModal(exerciseInputModal);
+});
+
 
     submitExerciseBtn.addEventListener("click", () => {
-      const exercise = document.getElementById("exercise-name").value;
-      const sets = document.getElementById("exercise-sets").value;
-      if (exercise && sets) {
-        currentRoutine.exercises.push({ exercise, sets });
-        document.getElementById("exercise-name").value = "";
-        document.getElementById("exercise-sets").value = "";
-        closeModal(exerciseInputModal);
-        renderCurrentExercises(); 
-      }
-    });
+  const exercise = document.getElementById("exercise-name").value;
+  const sets = document.getElementById("exercise-sets").value;
+  if (exercise && sets) {
+    if (isEditingRoutine) {
+      pastRoutines[selectedRoutineIndex].exercises.push({ exercise, sets });
+      renderEditExercises(pastRoutines[selectedRoutineIndex].exercises);
+    } else {
+      currentRoutine.exercises.push({ exercise, sets });
+      renderCurrentExercises();
+    }
+    document.getElementById("exercise-name").value = "";
+    document.getElementById("exercise-sets").value = "";
+    closeModal(exerciseInputModal);
+  }
+});
 
     saveRoutineBtn.addEventListener("click", () => {
   const routineName = routineNameInput.value;
   if (routineName && currentRoutine.exercises.length > 0) {
     pastRoutines.push({ name: routineName, exercises: [...currentRoutine.exercises] });
-    localStorage.setItem("pastRoutines", JSON.stringify(pastRoutines)); // Save
+    localStorage.setItem("pastRoutines", JSON.stringify(pastRoutines)); 
     currentRoutine = { name: "", exercises: [] };
     routineNameInput.value = "";
     renderCurrentExercises(); 
@@ -448,18 +461,12 @@ function deleteRoutine(index) {
     });
 
     editAddExerciseBtn.addEventListener("click", () => {
+
+      isEditingRoutine = true; //We're editing
+      exerciseInputModal.classList.add("on-top"); //raise z-index
+
       openModal(exerciseInputModal);
-      submitExerciseBtn.onclick = () => {
-        const exercise = document.getElementById("exercise-name").value;
-        const sets = document.getElementById("exercise-sets").value;
-        if (exercise && sets) {
-          pastRoutines[selectedRoutineIndex].exercises.push({ exercise, sets });
-          renderEditExercises(pastRoutines[selectedRoutineIndex].exercises);
-          document.getElementById("exercise-name").value = "";
-          document.getElementById("exercise-sets").value = "";
-          closeModal(exerciseInputModal);
-        }
-      };
+     
     });
 
     saveEditedRoutineBtn.addEventListener("click", () => {

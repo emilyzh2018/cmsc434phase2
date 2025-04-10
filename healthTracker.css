@@ -355,3 +355,6 @@ progress {
   border-radius: 5px;
   cursor: pointer;
 }
+.modal.on-top {
+  z-index: 1002 !important; 
+}
