@@ -11,41 +11,59 @@
     <div class="main-content">
       <div id="title-bar">
         <h1>Insights</h1>
-        <div id="profile-bar">
-          <img src="images/profile.png" width="40px" />
-          <span class="label">Profile</span>
-        </div>
+        
       </div>
 
       <div class="search-container">
-        <input type="text" placeholder="Search..." />
+        <div class="search-wrapper">
+          <div class="search-prefix" id="search-prefix">Category:</div>
+          <input type="text" id="search-input" placeholder="Search..." />
+          <ul class="dropdown" id="category-dropdown">
+            <li data-category="Nutrition">Nutrition</li>
+            <li data-category="Weight Loss">Weight Loss</li>
+            <li data-category="Muscle Gain">Muscle Gain</li>
+          </ul>
+        </div>
         <img src="images/search.png" alt="Search Icon" class="search-icon" />
       </div>
+      
+      
+      
 
       <div class="section">
         <h2>Nutrition</h2>
         <div class="card-row">
           <div class="card">Super foods</div>
-          <div class="card">How to read nutrition labels</div>
-          <div class="card">Good food habits</div>
+          <div class="card">How to Read Nutrition Labels</div>
+          <div class="card">Healthy Food Habits</div>
+          <div class="card">Healthy Cooking Guide</div>
+          <div class="card">What Are Macros?</div>
+          <div class="card">Common Misconceptions on Nutrition</div>
         </div>
       </div>
 
       <div class="section">
         <h2>Weight Loss</h2>
         <div class="card-row">
-          <div class="card">Best foods for weight loss</div>
-          <div class="card">Weight loss myths</div>
-          <div class="card">Best workouts</div>
+          <div class="card">Best Foods for Weight Loss</div>
+          <div class="card">Weight Loss Myths</div>
+          <div class="card">Best Workouts for Weight Loss</div>
+          <div class="card">Cardio vs. Lifting</div>
+          <div class="card">How to Healthily and Quickly Lose Weight</div>
+          <div class="card">Best Snacks For Weight Loss</div>
         </div>
       </div>
 
       <div class="section">
         <h2>Muscle Gain</h2>
         <div class="card-row">
-          <div class="card">Best leg workouts</div>
-          <div class="card">Do protein shakes work?</div>
-          <div class="card">Strength vs. weight</div>
+          <div class="card">Best Leg Workouts</div>
+          <div class="card">The Push Pull Legs (PPL) Split</div>
+          <div class="card">Upper Body Workouts</div>
+          <div class="card">Do Protein Shakes Work?</div>
+          <div class="card">Strength vs. Lifting for Aesthetics</div>
+          <div class="card">Bodybuilding 101</div>
+          <div class="card">Is Powerlifting Effective?</div>
         </div>
       </div>
     </div>
@@ -83,5 +101,66 @@
       </div>
     </div>
   </div>
+  <script>
+    const searchInput = document.getElementById('search-input');
+    const dropdown = document.getElementById('category-dropdown');
+    const prefix = document.getElementById('search-prefix');
+    let selectedCategory = "";
+  
+    
+    searchInput.addEventListener('focus', () => {
+      if (!selectedCategory) dropdown.style.display = 'block';
+    });
+  
+   
+    dropdown.querySelectorAll('li').forEach(item => {
+      item.addEventListener('click', () => {
+        selectedCategory = item.getAttribute('data-category');
+        prefix.textContent = selectedCategory + ':';
+        prefix.style.display = 'inline';
+        dropdown.style.display = 'none';
+        searchInput.placeholder = `Search ${selectedCategory.toLowerCase()}...`;
+        searchInput.focus();
+      });
+    });
+  
+
+    searchInput.addEventListener('input', () => {
+  const query = searchInput.value.trim().toLowerCase();
+
+
+  document.querySelectorAll('.section').forEach(section => {
+    const sectionTitle = section.querySelector('h2')?.textContent.trim().toLowerCase();
+    const cards = section.querySelectorAll('.card');
+
+    if (sectionTitle === selectedCategory.toLowerCase()) {
+   
+      section.style.display = 'block';
+
+      
+      cards.forEach(card => {
+        const text = card.textContent.toLowerCase();
+        card.style.display = text.includes(query) ? 'block' : 'none';
+      });
+    } else {
+   
+      section.style.display = 'none';
+    }
+  });
+});
+
+
+  
+
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('.search-container')) {
+        dropdown.style.display = 'none';
+      }
+    });
+  </script>
+  
+  
+  
+  
 </body>
 </html>
