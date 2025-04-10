@@ -233,13 +233,13 @@ h3 {
 
 
 
-.popup-overlay {
+.popup-overlay, .edit-popup-overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-color: rgba(0, 0, 0, 0.5); /* dim background */
+    background-color: rgba(0, 0, 0, 0.5);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -345,6 +345,42 @@ h3 {
 
   #height {
     margin-top: 0;
+  }
+
+
+
+
+  #edit-popup {
+    position: fixed;
+    top: 20%;
+    left: 50%;
+    width: 450px;
+    transform: translateX(-50%);
+    background-color: white;
+    padding: 20px;
+    z-index: 1000;
+    border-radius: 12px;
+    height: 350px;
+  }
+  
+  .hidden {
+    display: none;
+  }
+  
+  #edit-popup select {
+    width: 100%;
+  }
+
+  #edit-form {
+    height: 380px;
+    width: 400px;
+    left: 40%;
+  }
+
+  #edit-form p {
+    font-size: 1.2em;
+    margin-top: 15px;
+    margin-bottom: 15px;
   }
 
   
