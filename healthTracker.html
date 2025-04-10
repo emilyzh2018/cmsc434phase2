@@ -23,11 +23,35 @@
       </div>
 
       <div id="daily-tip-box">
-        <p><strong>Goals Progress</strong> <button class="small-btn">+</button></p>
-        <label>Workout 5x/week</label>
-        <progress value="60" max="100"></progress>
-        <label>Run 1 mile</label>
-        <progress value="80" max="100"></progress>
+        <div id="goals-section">
+          <p><strong>Goals Progress</strong> <button id="add-goal-btn" class="small-btn">+</button></p>
+          <div id="goals-list"></div>
+        </div>
+        
+    
+        <div class="modal" id="goal-modal">
+          <div class="modal-content">
+            <span class="close-btn" id="close-goal-modal">×</span>
+            <h3 id="goal-modal-title">Add New Goal</h3>
+            <input type="text" id="goal-title" placeholder="Goal Title" />
+            <input type="text" id="goal-category" placeholder="Category (e.g. cardio, strength)" />
+            <input type="number" id="goal-target" placeholder="Target Value" />
+            <input type="date" id="goal-start-date" />
+            <input type="date" id="goal-end-date" />
+            <button class="small-btn" id="save-goal">Save Goal</button>
+          </div>
+        </div>
+        <!-- Modal to update goal progress -->
+<div class="modal" id="progress-modal">
+  <div class="modal-content">
+    <span class="close-btn" id="close-progress-modal">×</span>
+    <h3>Update Progress</h3>
+    <input type="number" id="progress-input" placeholder="Enter progress value" />
+    <button class="small-btn" id="submit-progress">Submit</button>
+  </div>
+</div>
+
+        
       </div>
 
       <div class="button-row">
@@ -44,9 +68,7 @@
         <span class="close-btn" id="close-pr-modal">×</span>
         <h3>Workout Personal Records</h3>
         <div class="gallery-content" id="pr-gallery">
-          <div class="gallery-item">Bicep Curl<br><strong>20 lbs</strong></div>
-          <div class="gallery-item">Pull Ups<br><strong>5</strong></div>
-          <div class="gallery-item">Deadlift<br><strong>140 lbs</strong></div>
+         
         </div>
       </div>
     </div>
@@ -153,6 +175,13 @@
   </div>
 
   <script>
+    let personalRecords = JSON.parse(localStorage.getItem("personalRecords")) || [];
+
+    function savePRs() {
+      localStorage.setItem("personalRecords", JSON.stringify(personalRecords));
+    }
+
+
     const body = document.body;
     const prModal = document.getElementById("pr-modal");
     const openPR = document.getElementById("open-pr-modal");
@@ -196,7 +225,12 @@
       mainContent.classList.remove("dimmed");
     }
 
-    openPR.onclick = () => openModal(prModal);
+   
+    openPR.onclick = () => {
+  renderPRs();
+  openModal(prModal);
+};
+
     closePR.onclick = () => closeModal(prModal);
     openTrends.onclick = () => openModal(trendsModal);
     closeTrends.onclick = () => closeModal(trendsModal);
@@ -211,25 +245,52 @@
       if (event.target === exerciseInputModal) closeModal(exerciseInputModal);
       if (event.target === editRoutineModal) closeModal(editRoutineModal);
     };
+    
+    function renderPRs() {
+  prGallery.innerHTML = "";
+  personalRecords.forEach((pr, index) => {
+    const prDiv = document.createElement("div");
+    prDiv.className = "gallery-item";
+    prDiv.innerHTML = `
+      <div class="pr-entry">
+        ${pr.exercise}<br><strong>${pr.value}</strong>
+        <button class="small-btn delete-pr" data-index="${index}">x</button>
+      </div>
+    `;
+    prGallery.appendChild(prDiv);
+  });
 
-    submitPR.onclick = () => {
-      const exercise = document.getElementById("pr-exercise").value;
-      const value = document.getElementById("pr-value").value;
-      if (exercise && value) {
-        const newItem = document.createElement("div");
-        newItem.className = "gallery-item";
-        newItem.innerHTML = `${exercise}<br><strong>${value}</strong>`;
-        prGallery.appendChild(newItem);
-        document.getElementById("pr-exercise").value = "";
-        document.getElementById("pr-value").value = "";
-        closeModal(prInputModal);
-      }
-    };
+  //delete handler
+  document.querySelectorAll(".delete-pr").forEach(btn => {
+    btn.addEventListener("click", (e) => {
+      const index = e.target.getAttribute("data-index");
+      personalRecords.splice(index, 1);
+      savePRs();
+      renderPRs();
+
+    });
+  });
+}
 
 
-    let pastRoutines = [
-      
-    ];
+submitPR.onclick = () => {
+  const exercise = document.getElementById("pr-exercise").value;
+  const value = document.getElementById("pr-value").value;
+  if (exercise && value) {
+    personalRecords.push({ exercise, value });
+    savePRs(); //Save it to localStorage!
+    document.getElementById("pr-exercise").value = "";
+    document.getElementById("pr-value").value = "";
+    closeModal(prInputModal);
+    renderPRs();
+  }
+};
+
+
+
+
+let pastRoutines = JSON.parse(localStorage.getItem("pastRoutines")) || [];
+
     let currentRoutine = { name: "", exercises: [] };
     let selectedRoutineIndex = null;
 
@@ -318,20 +379,24 @@
     }
 
     function applyRoutine(routine) {
-      routineList.innerHTML = "";
-      routine.exercises.forEach((ex) => {
-        const li = document.createElement("li");
-        li.innerHTML = `<input type="checkbox" /> ${ex.exercise} - ${ex.sets}`;
-        routineList.appendChild(li);
-      });
-      closeModal(editRoutineModal);
-      closeModal(routineModal);
-    }
+  routineList.innerHTML = "";
+  routine.exercises.forEach((ex) => {
+    const li = document.createElement("li");
+    li.innerHTML = `<input type="checkbox" /> ${ex.exercise} - ${ex.sets}`;
+    routineList.appendChild(li);
+  });
+  localStorage.setItem("currentRoutine", JSON.stringify(routine)); // Save selected
+  closeModal(editRoutineModal);
+  closeModal(routineModal);
+}
 
-    function deleteRoutine(index) {
-      pastRoutines.splice(index, 1);
-      renderPastRoutines();
-    }
+
+function deleteRoutine(index) {
+  pastRoutines.splice(index, 1);
+  localStorage.setItem("pastRoutines", JSON.stringify(pastRoutines)); // Sync
+  renderPastRoutines();
+}
+
 
     editRoutineBtn.addEventListener("click", () => {
       openModal(routineModal);
@@ -365,15 +430,17 @@
     });
 
     saveRoutineBtn.addEventListener("click", () => {
-      const routineName = routineNameInput.value;
-      if (routineName && currentRoutine.exercises.length > 0) {
-        pastRoutines.push({ name: routineName, exercises: [...currentRoutine.exercises] });
-        currentRoutine = { name: "", exercises: [] };
-        routineNameInput.value = "";
-        renderCurrentExercises(); 
-        renderPastRoutines();
-      }
-    });
+  const routineName = routineNameInput.value;
+  if (routineName && currentRoutine.exercises.length > 0) {
+    pastRoutines.push({ name: routineName, exercises: [...currentRoutine.exercises] });
+    localStorage.setItem("pastRoutines", JSON.stringify(pastRoutines)); // Save
+    currentRoutine = { name: "", exercises: [] };
+    routineNameInput.value = "";
+    renderCurrentExercises(); 
+    renderPastRoutines();
+  }
+});
+
 
     closeEditRoutineModal.addEventListener("click", () => {
       closeModal(editRoutineModal);
@@ -402,6 +469,8 @@
         renderPastRoutines();
         closeModal(editRoutineModal);
       }
+      localStorage.setItem("pastRoutines", JSON.stringify(pastRoutines));
+
     });
 
     applyEditedRoutineBtn.addEventListener("click", () => {
@@ -410,6 +479,119 @@
     });
 
     renderPastRoutines();
+
+const savedRoutine = JSON.parse(localStorage.getItem("currentRoutine"));
+if (savedRoutine) {
+  applyRoutine(savedRoutine);
+}
+
+    const goalsList = document.getElementById("goals-list");
+  const addGoalBtn = document.getElementById("add-goal-btn");
+  const goalModal = document.getElementById("goal-modal");
+  const closeGoalModal = document.getElementById("close-goal-modal");
+  const saveGoalBtn = document.getElementById("save-goal");
+
+  const goalTitle = document.getElementById("goal-title");
+  const goalCategory = document.getElementById("goal-category");
+  const goalTarget = document.getElementById("goal-target");
+  const goalStartDate = document.getElementById("goal-start-date");
+  const goalEndDate = document.getElementById("goal-end-date");
+
+  let goals = JSON.parse(localStorage.getItem("goals")) || [];
+  let editingGoalIndex = null;
+
+  function renderGoals() {
+    goalsList.innerHTML = "";
+    goals.forEach((goal, index) => {
+      const div = document.createElement("div");
+      div.className = "goal-item";
+      div.innerHTML = `
+        <div class="goal-title">${goal.title}</div>
+        <progress class="goal-progress" value="${goal.progress || 0}" max="${goal.target}"></progress>
+      `;
+      div.onclick = () => updateGoalProgress(index);
+      goalsList.appendChild(div);
+    });
+  }
+
+  let progressModal = document.getElementById("progress-modal");
+let progressInput = document.getElementById("progress-input");
+let closeProgressModal = document.getElementById("close-progress-modal");
+let submitProgressBtn = document.getElementById("submit-progress");
+
+let currentGoalIndex = null;
+
+function updateGoalProgress(index) {
+  currentGoalIndex = index;
+  progressInput.value = "";
+  progressModal.style.display = "block";
+}
+
+submitProgressBtn.onclick = () => {
+  const value = parseFloat(progressInput.value);
+  if (!isNaN(value)) {
+    goals[currentGoalIndex].progress = Math.min(
+      (goals[currentGoalIndex].progress || 0) + value,
+      goals[currentGoalIndex].target
+    );
+    localStorage.setItem("goals", JSON.stringify(goals));
+    renderGoals();
+    progressModal.style.display = "none";
+  }
+};
+
+closeProgressModal.onclick = () => {
+  progressModal.style.display = "none";
+};
+
+window.onclick = (event) => {
+  if (event.target === progressModal) {
+    progressModal.style.display = "none";
+  }
+};
+
+
+  function openGoalModal() {
+    goalTitle.value = "";
+    goalCategory.value = "";
+    goalTarget.value = "";
+    goalStartDate.value = "";
+    goalEndDate.value = "";
+    editingGoalIndex = null;
+    goalModal.style.display = "block";
+  }
+
+  function closeGoalForm() {
+    goalModal.style.display = "none";
+  }
+
+  saveGoalBtn.onclick = () => {
+    const newGoal = {
+      title: goalTitle.value,
+      category: goalCategory.value,
+      target: parseFloat(goalTarget.value),
+      start: goalStartDate.value,
+      end: goalEndDate.value,
+      progress: 0
+    };
+    if (editingGoalIndex !== null) {
+      goals[editingGoalIndex] = newGoal;
+    } else {
+      goals.push(newGoal);
+    }
+    localStorage.setItem("goals", JSON.stringify(goals));
+    renderGoals();
+    closeGoalForm();
+  };
+
+  addGoalBtn.onclick = openGoalModal;
+  closeGoalModal.onclick = closeGoalForm;
+
+  window.onclick = (event) => {
+    if (event.target === goalModal) closeGoalForm();
+  };
+
+  renderGoals();
   </script>
 <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'92d57fc7c83f4533',t:'MTc0NDE1NDQ2Ni4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>

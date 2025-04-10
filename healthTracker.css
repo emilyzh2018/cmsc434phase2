@@ -347,3 +347,11 @@ progress {
 .exercise-item .delete-btn {
   margin-left: 10px; 
 }
+.delete-pr {
+  margin-left: 10px;
+  background-color: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
