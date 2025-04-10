@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=640, initial-scale=1.0" />
+  <title>Log New Meal Entry</title>
+  <link rel="stylesheet" href="Nutrition_Style.css" />
+</head>
+<body>
+  <div class="device">
+    <div id="title-bar">
+      <h2>Log New Meal Entry</h2>
+    </div>
+
+    <form id="logForm" class="log-form">
+      <label>Meal Type:</label>
+      <select id="mealType">
+        <option>Breakfast</option>
+        <option>Lunch</option>
+        <option>Dinner</option>
+        <option>Snack</option>
+      </select>
+    
+      <label>Food Item:</label>
+      <input type="text" id="foodItem" required />
+    
+      <label>Quantity:</label>
+      <input type="number" id="quantity" required />
+    
+      <label>Calories:</label>
+      <input type="number" id="calories" required />
+    
+      <label>Sugar (g):</label>
+      <input type="number" id="sugar" required />
+    
+      <label>Saturated Fat (g):</label>
+      <input type="number" id="fat" required />
+    
+      <label>Caffeine (mg):</label>
+      <input type="number" id="caffeine" required />
+    
+      <div class="save-entry-btn-wrapper">
+        <button type="submit" class="save-btn">Save Entry</button>
+      </div>
+      
+    </form>
+    
+    <div class="back-btn-wrapper">
+      <button class="back-btn" onclick="goBack()">Back to Nutrition</button>
+    </div>
+    
+        <!-- Bottom Navigation -->
+  <div class="bottom-nav">
+      <div class="nav-item">
+            <img src="images/insight.png" alt="Insight Icon" class="icon" />
+            <span class="label">Insights</span>
+          </div>
+          <div class="nav-item">
+            <img src="images/watch-fitness.png" alt="Fitness Icon" class="icon" />
+            <span class="label">Fitness</span>
+          </div>
+          <div class="nav-item">
+            <img src="images/home.png" alt="Home Icon" class="icon" />
+            <span class="label">Home</span>
+          </div>
+          <div class="nav-item active">
+            <img src="images/apple-whole.png" alt="Nutrition Icon" class="icon" />
+            <span class="label">Nutrition</span>
+          </div>
+          <div class="nav-item">
+            <img src="images/users-medical.png" alt="Community Icon" class="icon" />
+            <span class="label">Community</span>
+          </div>
+  </div>
+
+</div>
+  <script src="log-entry.js"></script>
+</body>
+</html>
