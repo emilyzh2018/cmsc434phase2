@@ -42,14 +42,16 @@
           </div>
         </div>
        
-<div class="modal" id="progress-modal">
-  <div class="modal-content">
-    <span class="close-btn" id="close-progress-modal">×</span>
-    <h3>Update Progress</h3>
-    <input type="number" id="progress-input" placeholder="Enter progress value" />
-    <button class="small-btn" id="submit-progress">Submit</button>
-  </div>
-</div>
+        <div class="modal" id="progress-modal">
+          <div class="modal-content">
+            <span class="close-btn" id="close-progress-modal">×</span>
+            <h3>Update Progress</h3>
+            <input type="number" id="progress-input" placeholder="Enter progress value" />
+            <button class="small-btn" id="submit-progress">Submit</button>
+            <button class="delete-btn" id="delete-goal-btn">Delete Goal</button> 
+          </div>
+        </div>
+        
 
         
       </div>
@@ -124,6 +126,8 @@
         </div>
       </div>
     </div>
+
+
     
 
     <div class="modal" id="edit-routine-modal">
@@ -141,6 +145,13 @@
       </div>
     </div>
 
+    <div class="modal" id="goal-achieved-modal">
+      <div class="modal-content">
+        <h3>🎉 You met your goal!</h3>
+        <button class="small-btn" id="close-goal-achieved">close</button>
+      </div>
+    </div>
+    
     <div class="bottom-nav">
       <div class="nav-item">
         <a href="home.html">
@@ -541,11 +552,28 @@ submitProgressBtn.onclick = () => {
       (goals[currentGoalIndex].progress || 0) + value,
       goals[currentGoalIndex].target
     );
-    localStorage.setItem("goals", JSON.stringify(goals));
-    renderGoals();
-    progressModal.style.display = "none";
+
+    if (goals[currentGoalIndex].progress >= goals[currentGoalIndex].target) {
+      //celebration modal
+      document.getElementById("goal-achieved-modal").style.display = "block";
+
+      //delete the goal
+      goals.splice(currentGoalIndex, 1);
+      localStorage.setItem("goals", JSON.stringify(goals));
+      renderGoals();
+      progressModal.style.display = "none";
+    } else {
+      localStorage.setItem("goals", JSON.stringify(goals));
+      renderGoals();
+      progressModal.style.display = "none";
+    }
   }
 };
+
+document.getElementById("close-goal-achieved").onclick = () => {
+  document.getElementById("goal-achieved-modal").style.display = "none";
+};
+
 
 closeProgressModal.onclick = () => {
   progressModal.style.display = "none";
@@ -556,6 +584,17 @@ window.onclick = (event) => {
     progressModal.style.display = "none";
   }
 };
+const deleteGoalBtn = document.getElementById("delete-goal-btn");
+
+deleteGoalBtn.onclick = () => {
+  if (currentGoalIndex !== null) {
+    goals.splice(currentGoalIndex, 1);
+    localStorage.setItem("goals", JSON.stringify(goals));
+    renderGoals();
+    progressModal.style.display = "none";
+  }
+};
+
 
 
   function openGoalModal() {
@@ -595,6 +634,10 @@ window.onclick = (event) => {
   closeGoalModal.onclick = closeGoalForm;
 
   window.onclick = (event) => {
+    if (event.target === document.getElementById("goal-achieved-modal")) {
+  document.getElementById("goal-achieved-modal").style.display = "none";
+}
+
     if (event.target === goalModal) closeGoalForm();
   };
 
