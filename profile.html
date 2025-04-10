@@ -22,9 +22,15 @@
         </div>
 
         <div>
-            <p id="weight">
-                <strong>Weight: </strong> <span id="weight-value">120 lbs</span>
-            </p>
+            <div id="weight">
+                <p>
+                  <strong>Weight: </strong> <span id="weight-value">120 lbs</span>
+                </p>
+                <div class="unit-toggle-box">
+                  <div id="imperialBox" class="unit-box active">Imperial</div>
+                  <div id="metricBox" class="unit-box">Metric</div>
+                </div>
+            </div>
             <p id="height">
                 <strong>Height:</strong> <span id="height-value">5'5 feet</span>
             </p>
@@ -35,11 +41,9 @@
                 <strong>Age:</strong> 23 years
             </p>
 
+
             <div id="unit-holder">
-              <div class="unit-toggle-box">
-                <div id="imperialBox" class="unit-box active">Imperial</div>
-                <div id="metricBox" class="unit-box">Metric</div>
-              </div>
+              <button id="edit-button" onclick="openEditForm()">Edit Data</button>
             </div>
 
 
@@ -278,6 +282,7 @@
         const form = document.getElementById("routine-form");
 
         form.addEventListener("submit", (e) => {
+          console.log("Hello");
           e.preventDefault();
 
           const formInfo = new FormData(form);
@@ -290,6 +295,8 @@
           
 
           localStorage.setItem(`profileInfo${data["day"]}`, JSON.stringify(data));
+
+          workoutPopup.innerHTML = ``;
         });
       });
   </script>

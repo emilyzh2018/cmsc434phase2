@@ -308,6 +308,7 @@ h3 {
   #unit-holder {
     display: flex;
     justify-content: center;
+    gap: 20px;
   }
 
   .unit-toggle-box {
@@ -333,3 +334,17 @@ h3 {
     color: white;
     border-color: #4568a9;
   }
+
+  #weight {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    margin: 0;
+  }
+
+  #height {
+    margin-top: 0;
+  }
+
+  
