@@ -103,63 +103,69 @@
   </div>
   <script>
     const searchInput = document.getElementById('search-input');
-    const dropdown = document.getElementById('category-dropdown');
     const prefix = document.getElementById('search-prefix');
+    const dropdown = document.getElementById('category-dropdown');
     let selectedCategory = "";
 
     document.addEventListener("DOMContentLoaded", () => {
-        document.getElementById("pref-one").innerHTML = (localStorage.getItem("prefOne") == null)? "Weight Loss" : localStorage.getItem("prefOne");
+      //Set section headers
+      const prefOne = localStorage.getItem("prefOne") || "Weight Loss";
+      const prefTwo = localStorage.getItem("prefTwo") || "Muscle Gain";
+      const prefThree = localStorage.getItem("prefThree") || "Dieting";
 
-        document.getElementById("pref-two").innerHTML = (localStorage.getItem("prefTwo") == null)? "Muscle Gain" : localStorage.getItem("prefTwo");
+      document.getElementById("pref-one").innerText = prefOne;
+      document.getElementById("pref-two").innerText = prefTwo;
+      document.getElementById("pref-three").innerText = prefThree;
 
-        document.getElementById("pref-three").innerHTML = (localStorage.getItem("prefThree") == null)? "Dieting" : localStorage.getItem("prefThree");
+      //Populate dropdown based on preferences
+      const preferences = [prefOne, prefTwo, prefThree];
+      dropdown.innerHTML = '';
+      preferences.forEach(pref => {
+        const li = document.createElement('li');
+        li.textContent = pref;
+        li.setAttribute('data-category', pref);
+        dropdown.appendChild(li);
+      });
+
+      //dropdown items
+      dropdown.querySelectorAll('li').forEach(item => {
+        item.addEventListener('click', () => {
+          selectedCategory = item.getAttribute('data-category');
+          prefix.textContent = selectedCategory + ':';
+          prefix.style.display = 'inline';
+          dropdown.style.display = 'none';
+          searchInput.placeholder = `Search ${selectedCategory.toLowerCase()}...`;
+          searchInput.focus();
+        });
+      });
     });
+
   
-    
     searchInput.addEventListener('focus', () => {
       if (!selectedCategory) dropdown.style.display = 'block';
     });
-  
-   
-    dropdown.querySelectorAll('li').forEach(item => {
-      item.addEventListener('click', () => {
-        selectedCategory = item.getAttribute('data-category');
-        prefix.textContent = selectedCategory + ':';
-        prefix.style.display = 'inline';
-        dropdown.style.display = 'none';
-        searchInput.placeholder = `Search ${selectedCategory.toLowerCase()}...`;
-        searchInput.focus();
+
+    //Filter cards based on input and category
+    searchInput.addEventListener('input', () => {
+      const query = searchInput.value.trim().toLowerCase();
+
+      document.querySelectorAll('.section').forEach(section => {
+        const sectionTitle = section.querySelector('h2')?.textContent.trim().toLowerCase();
+        const cards = section.querySelectorAll('.card');
+
+        if (sectionTitle === selectedCategory.toLowerCase()) {
+          section.style.display = 'block';
+          cards.forEach(card => {
+            const text = card.textContent.toLowerCase();
+            card.style.display = text.includes(query) ? 'block' : 'none';
+          });
+        } else {
+          section.style.display = 'none';
+        }
       });
     });
-  
 
-    searchInput.addEventListener('input', () => {
-  const query = searchInput.value.trim().toLowerCase();
-
-
-  document.querySelectorAll('.section').forEach(section => {
-    const sectionTitle = section.querySelector('h2')?.textContent.trim().toLowerCase();
-    const cards = section.querySelectorAll('.card');
-
-    if (sectionTitle === selectedCategory.toLowerCase()) {
-   
-      section.style.display = 'block';
-
-      
-      cards.forEach(card => {
-        const text = card.textContent.toLowerCase();
-        card.style.display = text.includes(query) ? 'block' : 'none';
-      });
-    } else {
-   
-      section.style.display = 'none';
-    }
-  });
-});
-
-
-  
-
+    
     document.addEventListener('click', (e) => {
       if (!e.target.closest('.search-container')) {
         dropdown.style.display = 'none';
