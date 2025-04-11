@@ -31,7 +31,7 @@
       
 
       <div class="section">
-        <h2>Nutrition</h2>
+        <h2 id="pref-one">Nutrition</h2>
         <div class="card-row">
           <div class="card">Super foods</div>
           <div class="card">How to Read Nutrition Labels</div>
@@ -43,7 +43,7 @@
       </div>
 
       <div class="section">
-        <h2>Weight Loss</h2>
+        <h2 id="pref-two">Weight Loss</h2>
         <div class="card-row">
           <div class="card">Best Foods for Weight Loss</div>
           <div class="card">Weight Loss Myths</div>
@@ -55,7 +55,7 @@
       </div>
 
       <div class="section">
-        <h2>Muscle Gain</h2>
+        <h2 id="pref-three">Muscle Gain</h2>
         <div class="card-row">
           <div class="card">Best Leg Workouts</div>
           <div class="card">The Push Pull Legs (PPL) Split</div>
@@ -106,6 +106,14 @@
     const dropdown = document.getElementById('category-dropdown');
     const prefix = document.getElementById('search-prefix');
     let selectedCategory = "";
+
+    document.addEventListener("DOMContentLoaded", () => {
+        document.getElementById("pref-one").innerHTML = (localStorage.getItem("prefOne") == null)? "Weight Loss" : localStorage.getItem("prefOne");
+
+        document.getElementById("pref-two").innerHTML = (localStorage.getItem("prefTwo") == null)? "Muscle Gain" : localStorage.getItem("prefTwo");
+
+        document.getElementById("pref-three").innerHTML = (localStorage.getItem("prefThree") == null)? "Dieting" : localStorage.getItem("prefThree");
+    });
   
     
     searchInput.addEventListener('focus', () => {
