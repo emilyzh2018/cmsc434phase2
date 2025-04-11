@@ -51,14 +51,14 @@
             </p>
             <div>
                 <div class="gallery-nav">
-                    <div class="gallery-item">
+                    <div class="gallery-item" id="pref-one">
                       Weight loss
                     </div>
           
-                    <div class="gallery-item">
+                    <div class="gallery-item" id="pref-two">
                       Muscle Gain
                     </div>
-                    <div class="gallery-item">
+                    <div class="gallery-item" id="pref-three">
                       Dieting
                     </div>
                   </div>
@@ -68,13 +68,13 @@
             </p>
             <div>
                 <div class="gallery-nav">
-                    <div class="gallery-item">
+                    <div class="gallery-item" id="health-one">
                       High Sugar
                     </div>
-                    <div class="gallery-item">
+                    <div class="gallery-item" id="health-two">
                       Low Calcium
                     </div>
-                    <div class="gallery-item">
+                    <div class="gallery-item" id="health-three">
                       High Cholestoral
                     </div>
                 </div>
@@ -82,13 +82,17 @@
         </div>
       </div>
       </div>
+      <br>
       <div id="profile-buttons">
+        <div>
+          <button id="edit-pref-button" onclick="editPref()">Edit Preferences & Health Info</button>
+        </div>
         <div>
           <button id="set-button">Set Workout Routine</button>
         </div>
-        <div>
+        <!-- <div>
             <button>View Routine</button>
-        </div>
+        </div> -->
         <!-- <div>
             <button>Log Out</button>
         </div> -->
@@ -104,34 +108,44 @@
       </div>
 
 
+      <div id="edit-preference-holder">
+      </div>
 
 
 
-      <hr />
+
+
+      <hr/>
       <div class="bottom-nav">
         <div class="nav-item">
+          <a href="insights.html">
           <img src="images/insight.png" alt="Insight Icon" class="icon" />
           <span class="label">Insights</span>
+          </a>
         </div>
         <div class="nav-item">
+          <a href="healthTracker.html">
           <img src="images/watch-fitness.png" alt="Fitness Icon" class="icon" />
-
           <span class="label">Fitness</span>
+        </a>
         </div>
         <div class="nav-item active">
-          <img src="images/home.png" alt="Home Icon" class="icon" />
-
-          <span class="label">Home</span>
+          <a href="home.html">
+            <img src="images/home.png" alt="Home Icon" class="icon" />
+            <span class="label">Home</span>
+          </a>
         </div>
         <div class="nav-item">
+          <a href="Nutrition_Style.html">
           <img src="images/apple-whole.png" alt="Nutrition Icon" class="icon" />
-
           <span class="label">Nutrition</span>
+          </a>
         </div>
         <div class="nav-item">
+          <a href="community.html">
           <img src="images/users-medical.png" alt="Community Icon" class="icon" />
-
           <span class="label">Community</span>
+        </a>
         </div>
       </div>
     </div>
@@ -145,6 +159,39 @@
       const savedHeight = localStorage.getItem("height");
       const savedSex = localStorage.getItem("sex");
       const savedAge = localStorage.getItem("age");
+
+      const savedPrefOne = localStorage.getItem("prefOne");
+      const savedPrefTwo = localStorage.getItem("prefTwo");
+      const savedPrefThree = localStorage.getItem("prefThree");
+
+      const savedHealthOne = localStorage.getItem("healthOne");
+      const savedHealthTwo = localStorage.getItem("healthTwo");
+      const savedHealthThree = localStorage.getItem("healthThree");
+
+
+      if (savedPrefOne) {
+        document.getElementById("pref-one").innerHTML = savedPrefOne;
+      }
+
+      if (savedPrefTwo) {
+        document.getElementById("pref-two").innerHTML = savedPrefTwo;
+      }
+
+      if (savedPrefThree) {
+        document.getElementById("pref-three").innerHTML = savedPrefThree;
+      }
+
+      if (savedHealthOne) {
+        document.getElementById("health-one").innerHTML = savedHealthOne;
+      }
+
+      if (savedHealthTwo) {
+        document.getElementById("health-two").innerHTML = savedHealthTwo;
+      }
+
+      if (savedHealthThree) {
+        document.getElementById("health-three").innerHTML = savedHealthThree;
+      }
 
 
       if (savedWeight) {
@@ -170,7 +217,7 @@
       });
 
       const workoutPopup = document.getElementById("popup-holder-div");
-      const openWorkoutBtn = document.querySelector("#profile-buttons button");       
+      const openWorkoutButton = document.getElementById("set-button");       
       const imperial = document.getElementById("imperialBox");
       const metric = document.getElementById("metricBox");
       const weight = document.getElementById("weight-value");
@@ -178,6 +225,93 @@
 
       let currWeight = weight.innerText;
       let currHeight = height.innerText;
+
+
+      function editPref() {
+        let preferenceDiv = document.getElementById("edit-preference-holder");
+
+        preferenceDiv.innerHTML = `
+            <div class="edit-preference-overlay">
+              <div id="edit-preference">
+                <form id="edit-pref-form">
+                  <h4>Edit Fitness Preferences (choose 3)</h4>
+                  <p>
+                    <label><input checked type="checkbox" name="fitnessPref" value="Weight loss"> Weight loss</label><br>
+                    <label><input checked type="checkbox" name="fitnessPref" value="Muscle Gain"> Muscle Gain</label><br>
+                    <label><input checked type="checkbox" name="fitnessPref" value="Dieting"> Dieting</label><br>
+                    <label><input type="checkbox" name="fitnessPref" value="Flexibility"> Flexibility</label><br>
+                    <label><input type="checkbox" name="fitnessPref" value="Endurance"> Endurance</label><br> 
+                    <label><input type="checkbox" name="fitnessPref" value="Stress Reduction"> Stress Reduction</label><br>
+                  </p>
+
+                  <h4>Edit Critical Health Info (choose 3)</h4>
+                  <p>
+                    <label><input checked type="checkbox" name="healthInfo" value="High Sugar"> High Sugar</label><br>
+                    <label><input checked type="checkbox" name="healthInfo" value="Low Calcium"> Low Calcium</label><br>
+                    <label><input checked type="checkbox" name="healthInfo" value="High Cholesterol"> High Cholesterol</label><br>
+                    <label><input type="checkbox" name="healthInfo" value="Diabetes"> Diabetes</label><br>
+                    <label><input type="checkbox" name="healthInfo" value="Low Iron"> Low Iron (Anemia)</label><br>
+                  </p>
+
+                  <br>
+                  <button type="submit">Save</button>
+                  <button type="button" id="cancel-button">Cancel</button>
+                </form>
+              </div>
+            </div>`;
+
+
+
+            let cancelDiv = document.getElementById("cancel-button");
+
+
+            cancelDiv.addEventListener("click", () => {
+               preferenceDiv.innerHTML = ``;
+            });
+
+
+            let prefForm = document.getElementById("edit-pref-form");
+
+            prefForm.addEventListener("submit", (e) => {
+
+              e.preventDefault();
+              console.log("HELLO");
+              let editFormInfo = new FormData(prefForm);
+              const data = {};
+              let listOfPrefData = [];
+              let listOfHealthData = [];
+              editFormInfo.forEach((value, key) => {
+                data[key] = value; 
+
+                if (key == "fitnessPref") {
+                  listOfPrefData.push(data[key]);
+                }
+
+                else if (key == "healthInfo") {
+                  listOfHealthData.push(data[key]);
+                }
+                
+
+              });
+
+               console.log(listOfHealthData);
+
+
+              localStorage.setItem("prefOne", `${listOfPrefData[0]}`);
+              localStorage.setItem("prefTwo", `${listOfPrefData[1]}`);
+              localStorage.setItem("prefThree", `${listOfPrefData[2]}`);
+              localStorage.setItem("healthOne", `${listOfHealthData[0]}`);
+              localStorage.setItem("healthTwo", `${listOfHealthData[1]}`);
+              localStorage.setItem("healthThree", `${listOfHealthData[2]}`);
+
+
+
+            });
+
+
+
+
+      }
 
       function openEditForm() {
         console.log("Hello");
@@ -210,7 +344,7 @@
               Age: <input name="age" type="number" id="edit-age" value="${currAgePlaceHolder}"/><br>
             </p> <br>
             <button type="submit">Save</button>
-            <button type="button" onclick="closeEditForm()">Cancel</button>
+            <button type="button" id="cancel-button">Cancel</button>
           </form>
         </div>
         </div>`;
@@ -241,13 +375,14 @@
           workoutPopup.innerHTML = ``;
           location.reload();
         });
-      }
+
+        let cancelDiv = document.getElementById("cancel-button");
 
 
-      function closeEditForm() {
-        let editDiv = document.getElementById("edit-popup-holder");
+        cancelDiv.addEventListener("click", () => {
+            editDiv.innerHTML = ``;
+        });
 
-        editDiv.innerHTML = ``;
       }
 
 
@@ -307,10 +442,6 @@
             let weightNumber = currWeight.match(/([0-9]+(\.[0-9]+)?)/);
 
             let heightNumber = currHeight.match(/([0-8])'([0-9](\.[0-9])?)/);
-
-
-            // console.log(heightNumber);
-            // console.log(weightNumber);
           
 
             let totalInches = 0;
@@ -319,11 +450,7 @@
               let feet = parseInt(heightNumber[1]);
               let inches = parseFloat(heightNumber[2]);
 
-              // console.log(feet);
-              // console.log(inches);
-
               totalInches = (feet * 12) + inches;
-
               
             }
 
@@ -345,10 +472,10 @@
     
       
 
-      openWorkoutBtn.addEventListener("click", () => {
+      openWorkoutButton.addEventListener("click", () => {
         workoutPopup.innerHTML = `<div class="popup-overlay" id="workout-popup" hidden>
           <div class="popup-content">
-            <span class="close-btn" id="close-popup-btn">X</span>
+            <span class="close-button" id="close-popup-button">X</span>
             <h2>Set Your Workout Routine</h2>
             <form id="routine-form">
               <label for="day">Select Day:</label>
@@ -376,9 +503,9 @@
 
 
 
-        const closeWorkoutBtn = document.getElementById("close-popup-btn");
+        const closeWorkoutButton = document.getElementById("close-popup-button");
 
-        closeWorkoutBtn.addEventListener("click", () => {
+        closeWorkoutButton.addEventListener("click", () => {
           workoutPopup.innerHTML = ``;
         });
 
