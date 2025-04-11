@@ -229,6 +229,35 @@
     const applyEditedRoutineBtn = document.getElementById("apply-edited-routine-btn");
     const currentExercisesList = document.getElementById("current-exercises-list");
 
+
+    document.addEventListener("DOMContentLoaded", () => {
+
+      const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+      const today = new Date();
+      const dayName = days[today.getDay()];
+
+      const savedRoutineJson = localStorage.getItem(`profileInfo${dayName}`);
+      console.log(savedRoutineJson);
+
+      let savedRoutine = JSON.parse(savedRoutineJson);
+
+      console.log(savedRoutine);
+
+      if (savedRoutine) {
+        routineList.innerHTML = "";
+        const li = document.createElement("li");
+        li.innerHTML = `<input type="checkbox" /> ${savedRoutine["activity"]} - No Sets Yet`;
+        routineNameInput.value = `${savedRoutine["activity"]}`;
+        routineList.appendChild(li);
+      }
+
+      // routine.exercises.forEach((ex) => {
+      // const li = document.createElement("li");
+      // li.innerHTML = `<input type="checkbox" /> ${ex.exercise} - ${ex.sets}`;
+      // routineList.appendChild(li);
+      // });
+    });
+
     function openModal(modal) {
       modal.style.display = "block";
       mainContent.classList.add("dimmed");
@@ -393,6 +422,16 @@ let pastRoutines = JSON.parse(localStorage.getItem("pastRoutines")) || [];
     }
 
     function applyRoutine(routine) {
+
+      const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+
+      const today = new Date();
+      const dayName = days[today.getDay()];
+
+
+      console.log(localStorage.getItem(`profileInfo${dayName}`));
+
+
   routineList.innerHTML = "";
   routine.exercises.forEach((ex) => {
     const li = document.createElement("li");
