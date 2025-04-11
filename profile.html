@@ -42,7 +42,7 @@
 
 
             <div id="unit-holder">
-              <button id="edit-button" onclick="openEditForm()">Edit Data</button>
+              <button id="edit-button" onclick="openEditForm()">Edit User Data</button>
             </div>
 
 
@@ -172,25 +172,43 @@
       if (savedPrefOne) {
         document.getElementById("pref-one").innerHTML = savedPrefOne;
       }
+      else {
+        savedPrefOne = "Weight Loss";
+      }
 
       if (savedPrefTwo) {
         document.getElementById("pref-two").innerHTML = savedPrefTwo;
+      }
+      else {
+        savedPrefTwo = "Muscle Gain";
       }
 
       if (savedPrefThree) {
         document.getElementById("pref-three").innerHTML = savedPrefThree;
       }
+      else {
+        savedPrefThree = "Dieting";
+      }
 
       if (savedHealthOne) {
         document.getElementById("health-one").innerHTML = savedHealthOne;
+      }
+      else {
+        savedHealthOne = "High Sugar";
       }
 
       if (savedHealthTwo) {
         document.getElementById("health-two").innerHTML = savedHealthTwo;
       }
+      else {
+        savedHealthTwo = "Low Calcium";
+      }
 
       if (savedHealthThree) {
         document.getElementById("health-three").innerHTML = savedHealthThree;
+      }
+      else {
+        savedHealthThree = "High Cholestorol";
       }
 
 
@@ -230,27 +248,44 @@
       function editPref() {
         let preferenceDiv = document.getElementById("edit-preference-holder");
 
+
+        // let inputDivOne = document.getElementById(`${savedPrefOne}`);
+        // let inputDivTwo = document.getElementById(`${savedPrefTwo}`);
+        // let inputDivThree = document.getElementById(`${savedPrefThree}`);
+
+
+        // let inputDivFour = document.getElementById(`${savedHealthOne}`);
+        // let inputDivFive = document.getElementById(`${savedHealthTwo}`);
+        // let inputDivSix = document.getElementById(`${savedHealthThree}`);
+
+
+        // inputDivOne.
+
+
+
+
+
         preferenceDiv.innerHTML = `
             <div class="edit-preference-overlay">
               <div id="edit-preference">
                 <form id="edit-pref-form">
                   <h4>Edit Fitness Preferences (choose 3)</h4>
                   <p>
-                    <label><input checked type="checkbox" name="fitnessPref" value="Weight loss"> Weight loss</label><br>
-                    <label><input checked type="checkbox" name="fitnessPref" value="Muscle Gain"> Muscle Gain</label><br>
-                    <label><input checked type="checkbox" name="fitnessPref" value="Dieting"> Dieting</label><br>
-                    <label><input type="checkbox" name="fitnessPref" value="Flexibility"> Flexibility</label><br>
-                    <label><input type="checkbox" name="fitnessPref" value="Endurance"> Endurance</label><br> 
-                    <label><input type="checkbox" name="fitnessPref" value="Stress Reduction"> Stress Reduction</label><br>
+                    <label><input id="Weight Loss" checked type="checkbox" name="fitnessPref" value="Weight loss"> Weight loss</label><br>
+                    <label><input id="Muscle Gain" checked type="checkbox" name="fitnessPref" value="Muscle Gain"> Muscle Gain</label><br>
+                    <label><input id="Dieting" checked type="checkbox" name="fitnessPref" value="Dieting"> Dieting</label><br>
+                    <label><input id="Flexibility" type="checkbox" name="fitnessPref" value="Flexibility"> Flexibility</label><br>
+                    <label><input id="Endurance" type="checkbox" name="fitnessPref" value="Endurance"> Endurance</label><br> 
+                    <label><input id="Stress Reduction" type="checkbox" name="fitnessPref" value="Stress Reduction"> Stress Reduction</label><br>
                   </p>
 
                   <h4>Edit Critical Health Info (choose 3)</h4>
                   <p>
-                    <label><input checked type="checkbox" name="healthInfo" value="High Sugar"> High Sugar</label><br>
-                    <label><input checked type="checkbox" name="healthInfo" value="Low Calcium"> Low Calcium</label><br>
-                    <label><input checked type="checkbox" name="healthInfo" value="High Cholesterol"> High Cholesterol</label><br>
-                    <label><input type="checkbox" name="healthInfo" value="Diabetes"> Diabetes</label><br>
-                    <label><input type="checkbox" name="healthInfo" value="Low Iron"> Low Iron (Anemia)</label><br>
+                    <label><input id="High Sugar" checked type="checkbox" name="healthInfo" value="High Sugar"> High Sugar</label><br>
+                    <label><input id="Low Calcium" checked type="checkbox" name="healthInfo" value="Low Calcium"> Low Calcium</label><br>
+                    <label><input id="High Cholestorol" checked type="checkbox" name="healthInfo" value="High Cholesterol"> High Cholesterol</label><br>
+                    <label><input id="Diabetes" type="checkbox" name="healthInfo" value="Diabetes"> Diabetes</label><br>
+                    <label><input id="Low Iron" type="checkbox" name="healthInfo" value="Low Iron"> Low Iron (Anemic)</label><br>
                   </p>
 
                   <br>
@@ -305,6 +340,7 @@
               localStorage.setItem("healthThree", `${listOfHealthData[2]}`);
 
 
+              location.reload();
 
             });
 
