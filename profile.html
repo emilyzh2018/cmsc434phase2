@@ -278,19 +278,24 @@
         const form = document.getElementById("routine-form");
 
         form.addEventListener("submit", (e) => {
-          e.preventDefault();
+  e.preventDefault();
 
-          const formInfo = new FormData(form);
+  const formInfo = new FormData(form);
+  const data = {};
+  formInfo.forEach((value, key) => {
+    data[key] = value; 
+  });
 
-          const data = {};
-          formInfo.forEach((value, key) => {
-            data[key] = value; 
-          });
+  localStorage.setItem(`profileInfo${data["day"]}`, JSON.stringify(data));
 
-          
+  // Optional: Also set one current routine
+  localStorage.setItem("currentWorkoutRoutine", JSON.stringify(data));
 
-          localStorage.setItem(`profileInfo${data["day"]}`, JSON.stringify(data));
-        });
+  // ✅ Provide user feedback & close popup
+  alert(`Workout routine for ${data["day"]} set successfully!`);
+  workoutPopup.innerHTML = ``;
+});
+
       });
   </script>
 </html>

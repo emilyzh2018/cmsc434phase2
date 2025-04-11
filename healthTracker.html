@@ -15,7 +15,8 @@
       </div>
 
       <div id="color-block">
-        <strong>Workout Routine of the Day</strong>
+        <strong>Workout Routine of the Day: <span id="routine-title-display">None Selected</span></strong>
+
         <button class="small-btn" id="edit-routine-btn">Edit</button>
         <ul id="routine-list">
          
@@ -125,13 +126,13 @@
         <span class="label">Insights</span>
         </a>
       </div>
-      <div class="nav-item">
+      <div class="nav-item active">
         <a href="healthTracker.html">
         <img src="images/watch-fitness.png" alt="Fitness Icon" class="icon" />
         <span class="label">Fitness</span>
       </a>
       </div>
-      <div class="nav-item active">
+      <div class="nav-item">
         <a href="home.html">
           <img src="images/home.png" alt="Home Icon" class="icon" />
           <span class="label">Home</span>
@@ -239,19 +240,29 @@
         const routineDiv = document.createElement("div");
         routineDiv.className = "past-routine-item";
         routineDiv.innerHTML = `
-          <span>${routine.name}</span>
-          <button class="small-btn apply-btn" data-index="${index}">select</button>
-          <button class="delete-btn" data-index="${index}">Delete</button>
-        `;
+  <span>${routine.name}</span>
+  <button class="small-btn apply-btn" data-index="${index}">Select</button>
+  <button class="small-btn edit-btn" data-index="${index}">Edit</button>
+  <button class="delete-btn" data-index="${index}">Delete</button>
+`;
+document.querySelectorAll(".edit-btn").forEach((btn) => {
+  btn.addEventListener("click", (e) => {
+    const index = e.target.getAttribute("data-index");
+    openEditRoutineModal(index); //Now only editing
+  });
+});
+
         pastRoutinesDiv.appendChild(routineDiv);
       });
 
       document.querySelectorAll(".apply-btn").forEach((btn) => {
-        btn.addEventListener("click", (e) => {
-          const index = e.target.getAttribute("data-index");
-          openEditRoutineModal(index);
-        });
-      });
+  btn.addEventListener("click", (e) => {
+    const index = e.target.getAttribute("data-index");
+    const routine = pastRoutines[index];
+    applyRoutine(routine); 
+  });
+});
+
 
       document.querySelectorAll(".delete-btn").forEach((btn) => {
         btn.addEventListener("click", (e) => {
@@ -318,15 +329,19 @@
     }
 
     function applyRoutine(routine) {
-      routineList.innerHTML = "";
-      routine.exercises.forEach((ex) => {
-        const li = document.createElement("li");
-        li.innerHTML = `<input type="checkbox" /> ${ex.exercise} - ${ex.sets}`;
-        routineList.appendChild(li);
-      });
-      closeModal(editRoutineModal);
-      closeModal(routineModal);
-    }
+  routineList.innerHTML = "";
+  document.getElementById("routine-title-display").textContent = routine.name; 
+  routine.exercises.forEach((ex) => {
+    const li = document.createElement("li");
+    li.innerHTML = `<input type="checkbox" /> ${ex.exercise} - ${ex.sets}`;
+    routineList.appendChild(li);
+  });
+  localStorage.setItem("currentRoutine", JSON.stringify(routine)); 
+  closeModal(editRoutineModal);
+  closeModal(routineModal);
+}
+
+
 
     function deleteRoutine(index) {
       pastRoutines.splice(index, 1);
