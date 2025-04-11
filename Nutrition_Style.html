@@ -8,7 +8,6 @@
 </head>
 <body>
     <div class="device">
-      <!-- Header -->
       <div id="title-bar">
         <h1>Nutrition Tracker</h1>
       </div>
@@ -22,9 +21,6 @@
         
       </div>
       
-
-  
-  <!-- Nutrition Summary -->
   <div class="summary-box">
     <h3>Your Nutrition Summary 
     </h3>
@@ -48,40 +44,23 @@
       <label id="caffeineLabel">Caffeine:</label>
       <progress id="caffeineBar" value="183" max="100" style="accent-color: #E94E77;"></progress>
     </div>
-    
-  
   </div>
-
-  
 
   <div class="legend">
     <p><span class="legend-box normal"></span> Within Limits</p>
     <p><span class="legend-box high"></span> Exceeds Limit</p>
   </div>
   
-  
-  <div class="gallery-nav">
-    <div class="gallery-item">
-      <a href="goals.html" style="text-decoration: none; color: inherit;">
-        <strong>Set Your Daily Nutrition Goals</strong>
-      </a>
-    </div>
-  </div>
-  
-  
-  <details class="gallery-nav">
-    <summary class="gallery-item">View Entries</summary>
-    <div class="gallery-content">
-      <p>
-        <a href="entries.html" style="text-decoration: none; color: inherit;">
-          📋 View your previous entries
-        </a>
-      </p>
-    </div>
-  </details>
+  <div class="entry-goal-buttons">
+    <a href="goals.html" class="gallery-button">
+      <strong>Set Your Daily Nutrition Goals</strong>
+    </a>
+    
+    <a href="entries.html" class="gallery-button">
+      <strong>View Entries</strong>
+    </a>
+  </div>  
 
-
-      <!-- Bottom Navigation -->
       <div class="bottom-nav">
         <div class="nav-item">
           <img src="images/insight.png" alt="Insight Icon" class="icon" />
@@ -104,7 +83,7 @@
           <span class="label">Community</span>
         </div>
       </div>
-
+</div>
 <script src="Nutrition_Style.js"></script>
 </body>
 </html>
