@@ -1,7 +1,7 @@
 body {
   font-family: 'Inter';
   font-size: 22px;
-  margin: 0;
+  /* margin: 0; */
 }
 
 .main-content {
@@ -85,6 +85,7 @@ progress {
   font-size: 1.1em;
   text-align: center;
   padding: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
   box-sizing: border-box;
 }
 
@@ -119,23 +120,23 @@ progress {
   outline: 3px solid black;
 }
 
-.nav-item {
+/* .nav-item {
   display: flex;
   flex-direction: column;
   align-items: center;
-  font-size: 1.0em;
+  font-size: 0.9em;
 
   cursor: pointer;
   background-color: #ACD1F0;
   border-radius: 9px;
 
-} 
+}  */
 
 .nav-item a {
   display: flex;
   flex-direction: column;
   align-items: center;
-  font-size: 0.9em;
+  font-size: 1.0em;
   padding: 5px 25px;
   cursor: pointer;
   background-color: #ACD1F0;
