@@ -35,11 +35,13 @@ function goBack() {
       return;
     }
   
-    const entriesToShow = showAll ? filteredLogs : filteredLogs.slice(0, 10);
+    const entriesToShow = showAll ? filteredLogs : filteredLogs.slice(0, 5);
+
   
     entriesToShow.forEach((entry, index) => {
       const div = document.createElement("div");
       div.classList.add("summary-box");
+
       div.innerHTML = `
         <p><strong>${entry.meal}</strong> - ${entry.item}</p>
         <p>Qty: ${entry.quantity}, Calories: ${entry.calories}</p>

@@ -42,10 +42,6 @@
       alert("You're nearing your daily calorie limit!");
     }
   }
-
-  window.onload = function () {
-    updateNutritionSummary();
-  };
   
   function updateNutritionSummary() {
     const goals = JSON.parse(localStorage.getItem("userGoals")) || {
