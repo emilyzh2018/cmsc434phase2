@@ -213,7 +213,14 @@ h3 {
 }
 
 .nav-item.active {
-    background-color: #8ACDCF;
+    background-color: #132524;
+    border-radius: 9px;
+    color: white;
+}
+
+
+#nav-item-active {
+    background-color: #d7a9f5;
     border-radius: 9px;
 }
 

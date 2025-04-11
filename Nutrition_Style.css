@@ -1,6 +1,6 @@
 body {
   font-family: 'Inter';
-  font-size: 20px;
+  font-size: 22px;
   margin: 0;
 }
 
@@ -64,7 +64,7 @@ body {
   outline: 3px solid black;
 }
   
-.nav-item {
+/* .nav-item {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -74,23 +74,42 @@ body {
   background-color: #ACD1F0;
   border-radius: 9px;
 
-}
+} */
   
 .nav-item.active {
-  background-color: #8ACDCF;
+  background-color: #132524;
   border-radius: 9px;
+  color: white;
 }
 
 .nav-item .icon {
   width: 45px;
   height: 45px;
   margin-bottom: 4px;
-
 }
   
   .nav-item .label {
-    font-size: 0.8em;
+    font-size: 0.9em;
   }
+
+  #nav-item-active {
+    background-color: #d7a9f5;
+    border-radius: 9px;
+  }
+
+
+  .nav-item a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 0.9em;
+    padding: 5px 25px;
+    cursor: pointer;
+    background-color: #ACD1F0;
+    border-radius: 9px;
+    text-decoration: none;
+    color: black;
+}
   
 .small-btn {
   background-color: #eee;
@@ -332,4 +351,8 @@ progress{
 .small-btn:hover {
   background-color: #6e61a9;
 }
+
+
+
+
 
