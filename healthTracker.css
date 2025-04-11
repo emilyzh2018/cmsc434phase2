@@ -79,7 +79,7 @@ progress {
 .gallery-item {
   border: 3px solid black;
   background-color: #E0D3E8;
-  border-radius: 38px;
+  border-radius: 20px;
   height: auto;
   width: 200px;
   font-size: 1.1em;
