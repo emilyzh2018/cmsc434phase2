@@ -12,7 +12,6 @@ body {
     display: flex;
     justify-content: space-between;
     flex-direction: column;
-    /* background-color: #c6e3f6; */
     background-color: #D9E0FA;
 }
 
@@ -63,7 +62,7 @@ ul {
     font-size: 0.9em;
     padding: 5px 10px;
     cursor: pointer;
-    background-color: #8ACDCF;
+    background-color: #d7a9f5;
     border-radius: 9px;
 }
 
@@ -73,6 +72,7 @@ ul {
     /* gap: 100px; */
     justify-content: space-between;
     outline: 3px solid #707070;
+    background-color: #D9E0FA;
 }
 
 #daily-tip-box p {
@@ -150,20 +150,7 @@ h1 {
     align-items: center;
     background-color: #E5EBFB;
     box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
-    outline: 3px solid #707070;
-}
-
-
-.nav-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    font-size: 0.9em;
-    padding: 5px 25px;
-    cursor: pointer;
-    background-color: #ACD1F0;
-    border-radius: 9px;
-
+    outline: 3px solid black;
 }
 
 .gallery-nav {
@@ -174,7 +161,7 @@ h1 {
     /* background-color: #E5EBFB; */
     /* box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2); */
     /* outline: 1px solid black; */
-    height: 60px;
+    height: 50px;
 }
 
 #profile-buttons {
@@ -225,6 +212,11 @@ h3 {
 
 }
 
+#nav-item-active {
+    background-color: #d7a9f5;
+    border-radius: 9px;
+}
+
 
 
 .nav-item .label {
@@ -233,13 +225,13 @@ h3 {
 
 
 
-.popup-overlay {
+.popup-overlay, .edit-popup-overlay, .edit-preference-overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-color: rgba(0, 0, 0, 0.5); /* dim background */
+    background-color: rgba(0, 0, 0, 0.5);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -295,7 +287,7 @@ h3 {
     background-color: #77bfc2;
   }
   
-  .close-btn {
+  .close-button {
     position: absolute;
     right: 16px;
     top: 12px;
@@ -308,6 +300,7 @@ h3 {
   #unit-holder {
     display: flex;
     justify-content: center;
+    gap: 20px;
   }
 
   .unit-toggle-box {
@@ -333,3 +326,87 @@ h3 {
     color: white;
     border-color: #4568a9;
   }
+
+  #weight {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    margin: 0;
+  }
+
+  #height {
+    margin-top: 0;
+  }
+
+
+
+
+  #edit-popup {
+    position: fixed;
+    top: 20%;
+    left: 50%;
+    width: 450px;
+    transform: translateX(-50%);
+    background-color: white;
+    padding: 20px;
+    z-index: 1000;
+    border-radius: 12px;
+    height: 400px;
+  }
+
+
+  #edit-preference {
+    position: fixed;
+    top: 20%;
+    left: 50%;
+    width: 550px;
+    transform: translateX(-50%);
+    background-color: white;
+    padding: 20px;
+    z-index: 1000;
+    border-radius: 12px;
+    height: 600px;
+  }
+  
+  .hidden {
+    display: none;
+  }
+  
+  #edit-popup select {
+    width: 100%;
+  }
+
+  #edit-form, #edit-pref-form {
+    height: 400px;
+    width: 400px;
+    left: 40%;
+  }
+
+  #edit-form p {
+    font-size: 1.2em;
+    margin-top: 15px;
+    margin-bottom: 15px;
+  }
+
+  #edit-weight, #edit-height, #edit-sex, #edit-age {
+    font-size: 1.0em;
+  }
+
+  #preferences-button, #health-button {
+    font-size: 1.0em;
+  }
+
+
+  .nav-item a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 0.9em;
+    padding: 5px 25px;
+    cursor: pointer;
+    background-color: #ACD1F0;
+    border-radius: 9px;
+    text-decoration: none;
+    color: black;
+}

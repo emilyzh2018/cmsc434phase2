@@ -2,13 +2,14 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=640, initial-scale=1.0" />
+  <!-- <meta name="viewport" content="width=640, initial-scale=1.0" /> -->
   <title>Nutrition Tracking</title>
+  <link href="https://fonts.googleapis.com/css?family=Inter" rel="stylesheet" />
+
   <link rel="stylesheet" href="Nutrition_Style.css" />
 </head>
 <body>
     <div class="device">
-      <!-- Header -->
       <div id="title-bar">
         <h1>Nutrition Tracker</h1>
       </div>
@@ -22,9 +23,6 @@
         
       </div>
       
-
-  
-  <!-- Nutrition Summary -->
   <div class="summary-box">
     <h3>Your Nutrition Summary 
     </h3>
@@ -48,63 +46,56 @@
       <label id="caffeineLabel">Caffeine:</label>
       <progress id="caffeineBar" value="183" max="100" style="accent-color: #E94E77;"></progress>
     </div>
-    
-  
   </div>
-
-  
 
   <div class="legend">
     <p><span class="legend-box normal"></span> Within Limits</p>
     <p><span class="legend-box high"></span> Exceeds Limit</p>
   </div>
   
-  
-  <div class="gallery-nav">
-    <div class="gallery-item">
-      <a href="goals.html" style="text-decoration: none; color: inherit;">
-        <strong>Set Your Daily Nutrition Goals</strong>
+  <div class="entry-goal-buttons">
+    <a href="goals.html" class="gallery-button">
+      <strong>Set Your Daily Nutrition Goals</strong>
+    </a>
+    
+    <a href="entries.html" class="gallery-button">
+      <strong>View Entries</strong>
+    </a>
+  </div>  
+
+  <div class="bottom-nav">
+    <div class="nav-item">
+      <a href="insights.html">
+      <img src="images/insight.png" alt="Insight Icon" class="icon" />
+      <span class="label">Insights</span>
       </a>
     </div>
-  </div>
-  
-  
-  <details class="gallery-nav">
-    <summary class="gallery-item">View Entries</summary>
-    <div class="gallery-content">
-      <p>
-        <a href="entries.html" style="text-decoration: none; color: inherit;">
-          📋 View your previous entries
-        </a>
-      </p>
+    <div class="nav-item">
+      <a href="healthTracker.html">
+      <img src="images/watch-fitness.png" alt="Fitness Icon" class="icon" />
+      <span class="label">Fitness</span>
+    </a>
     </div>
-  </details>
-
-
-      <!-- Bottom Navigation -->
-      <div class="bottom-nav">
-        <div class="nav-item">
-          <img src="images/insight.png" alt="Insight Icon" class="icon" />
-          <span class="label">Insights</span>
-        </div>
-        <div class="nav-item">
-          <img src="images/watch-fitness.png" alt="Fitness Icon" class="icon" />
-          <span class="label">Fitness</span>
-        </div>
-        <div class="nav-item">
-          <img src="images/home.png" alt="Home Icon" class="icon" />
-          <span class="label">Home</span>
-        </div>
-        <div class="nav-item active">
-          <img src="images/apple-whole.png" alt="Nutrition Icon" class="icon" />
-          <span class="label">Nutrition</span>
-        </div>
-        <div class="nav-item">
-          <img src="images/users-medical.png" alt="Community Icon" class="icon" />
-          <span class="label">Community</span>
-        </div>
-      </div>
-
+    <div class="nav-item">
+      <a href="home.html">
+        <img src="images/home.png" alt="Home Icon" class="icon" />
+        <span class="label">Home</span>
+      </a>
+    </div>
+    <div class="nav-item active">
+      <a id="nav-item-active" href="Nutrition_Style.html">
+      <img src="images/apple-whole.png" alt="Nutrition Icon" class="icon" />
+      <span class="label">Nutrition</span>
+      </a>
+    </div>
+    <div class="nav-item">
+      <a href="community.html">
+      <img src="images/users-medical.png" alt="Community Icon" class="icon" />
+      <span class="label">Community</span>
+    </a>
+    </div>
+  </div>
+</div>
 <script src="Nutrition_Style.js"></script>
 </body>
 </html>
