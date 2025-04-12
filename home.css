@@ -12,7 +12,7 @@ body {
     display: flex;
     justify-content: space-between;
     flex-direction: column;
-    /* background-color: #c6e3f6; */
+
     background-color: #D9E0FA;
 }
 
@@ -187,9 +187,7 @@ h1 {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    /* background-color: #E5EBFB; */
-    /* box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2); */
-    /* outline: 1px solid black; */
+
     height: 100px;
 }
 
@@ -239,8 +237,7 @@ h3 {
     font-size: 0.9em;
 }
 
-/* Pop-Up stuff */
-/* Pop-Up Styles */
+
 .popup {
     display: none; /* Hidden by default */
     position: fixed;
@@ -248,11 +245,11 @@ h3 {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    background-color: rgba(0, 0, 0, 0.5); 
     justify-content: center;
-    align-items: flex-start; /* Align near the top */
-    z-index: 1000; /* Ensure it appears above other content */
-    padding-top: 20px; /* Small buffer at the top */
+    align-items: flex-start; 
+    z-index: 1000; 
+    padding-top: 20px; 
   }
   
   .popup-content {
@@ -261,9 +258,9 @@ h3 {
     border-radius: 10px;
     width: 90%;
     max-width: 50vh;
-    max-height: 90vh; /* Keep the max height as is */
-    min-height: 70vh; /* NEW: Set a minimum height to make the pop-up taller */
-    overflow-y: auto; /* Add scroll if content overflows */
+    max-height: 90vh; 
+    min-height: 70vh; 
+    overflow-y: auto; 
     position: relative;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   }
@@ -293,7 +290,7 @@ h3 {
     font-size: 16px;
   }
   
-  /* Style for the toggle button container */
+
   .toggle-container {
     text-align: center;
     margin-bottom: 20px;
@@ -338,7 +335,7 @@ h3 {
   .popup-content .action-btn:hover {
     background-color: #d1b8e8;
   }
-  /* Style for the toggle button container */
+
 .toggle-container {
     text-align: center;
     margin-bottom: 20px;
@@ -371,20 +368,20 @@ h3 {
   .unit-toggle:hover {
     background-color: #b0c4de;
   }
-  /* Style for Fitness Preferences buttons */
+ 
 .fitness-preferences {
     display: flex;
-    justify-content: center; /* Center the buttons horizontally */
-    gap: 10px; /* Add spacing between buttons */
-    margin-bottom: 20px; /* Add some space below */
+    justify-content: center; 
+    gap: 10px; 
+    margin-bottom: 20px; 
   }
   
-  /* Style for the action buttons container */
+ 
   .action-buttons.popup-button-format {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    height: 150px; /* Fixed height for even spacing */
-    margin-top: auto; /* NEW: Push the buttons to the bottom */
-    margin-bottom: 20px; /* Add some space at the bottom */
+    height: 150px; 
+    margin-top: auto; 
+    margin-bottom: 20px; 
   }
