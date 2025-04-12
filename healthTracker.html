@@ -15,7 +15,8 @@
       </div>
 
       <div id="color-block">
-        <strong>Workout Routine of the Day</strong>
+        <strong>Workout Routine of the Day: <span id="routine-title-display">None Selected</span></strong>
+
         <button class="small-btn" id="edit-routine-btn">Edit</button>
         <ul id="routine-list">
          
@@ -229,6 +230,24 @@
     const applyEditedRoutineBtn = document.getElementById("apply-edited-routine-btn");
     const currentExercisesList = document.getElementById("current-exercises-list");
 
+    //load the workout routine based on day of week
+    function loadTodayRoutineFromProfile() {
+  const days = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+  const today = days[new Date().getDay()];
+  const routineData = JSON.parse(localStorage.getItem(`profileInfo${today}`));
+
+  if (routineData) {
+    const titleSpan = document.getElementById("routine-title-display");
+    titleSpan.textContent = `${routineData.activity}`;
+
+
+    routineList.innerHTML = `<li><input type="checkbox" /> ${routineData.activity}</li>`;
+  }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  loadTodayRoutineFromProfile();
+});
 
     document.addEventListener("DOMContentLoaded", () => {
 
@@ -245,10 +264,7 @@
 
       if (savedRoutine) {
         routineList.innerHTML = "";
-        const li = document.createElement("li");
-        li.innerHTML = `<input type="checkbox" /> ${savedRoutine["activity"]} - No Sets Yet`;
-        routineNameInput.value = `${savedRoutine["activity"]}`;
-        routineList.appendChild(li);
+        
       }
 
       // routine.exercises.forEach((ex) => {
@@ -343,19 +359,29 @@ let pastRoutines = JSON.parse(localStorage.getItem("pastRoutines")) || [];
         const routineDiv = document.createElement("div");
         routineDiv.className = "past-routine-item";
         routineDiv.innerHTML = `
-          <span>${routine.name}</span>
-          <button class="small-btn apply-btn" data-index="${index}">select</button>
-          <button class="delete-btn" data-index="${index}">Delete</button>
-        `;
+  <span>${routine.name}</span>
+  <button class="small-btn apply-btn" data-index="${index}">Select</button>
+  <button class="small-btn edit-btn" data-index="${index}">Edit</button>
+  <button class="delete-btn" data-index="${index}">Delete</button>
+`;
+document.querySelectorAll(".edit-btn").forEach((btn) => {
+  btn.addEventListener("click", (e) => {
+    const index = e.target.getAttribute("data-index");
+    openEditRoutineModal(index); //Now only editing
+  });
+});
+
         pastRoutinesDiv.appendChild(routineDiv);
       });
 
       document.querySelectorAll(".apply-btn").forEach((btn) => {
-        btn.addEventListener("click", (e) => {
-          const index = e.target.getAttribute("data-index");
-          openEditRoutineModal(index);
-        });
-      });
+  btn.addEventListener("click", (e) => {
+    const index = e.target.getAttribute("data-index");
+    const routine = pastRoutines[index];
+    applyRoutine(routine); 
+  });
+});
+
 
       document.querySelectorAll(".delete-btn").forEach((btn) => {
         btn.addEventListener("click", (e) => {

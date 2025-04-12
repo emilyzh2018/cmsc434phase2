@@ -550,17 +550,19 @@
         form.addEventListener("submit", (e) => {
           console.log("Hello");
           e.preventDefault();
+  e.preventDefault();
 
-          const formInfo = new FormData(form);
-
-          const data = {};
-          formInfo.forEach((value, key) => {
-            data[key] = value; 
-          });
+  const formInfo = new FormData(form);
+  const data = {};
+  formInfo.forEach((value, key) => {
+    data[key] = value; 
+  });
 
           console.log(JSON.stringify(data));
+  localStorage.setItem(`profileInfo${data["day"]}`, JSON.stringify(data));
 
-          localStorage.setItem(`profileInfo${data["day"]}`, JSON.stringify(data));
+
+
 
           workoutPopup.innerHTML = ``;
         });

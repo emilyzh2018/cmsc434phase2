@@ -98,11 +98,11 @@ body {
   .card {
     flex: 0 0 calc((100% - 30px) / 3); 
     min-width: calc((100% - 30px) / 3);
-    background: rgba(255, 255, 255, 0.25);
+    background: #D4C9F0; 
     height:50px;
     backdrop-filter: blur(10px);
     border-radius: 15px;
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 8px 15px rgba(33, 0, 69, 0.4);
     border: 1px solid rgba(255, 255, 255, 0.3);
     color: rgb(45, 34, 61);
 
@@ -121,7 +121,7 @@ body {
   
   .card:hover {
     transform: translateY(-3px);
-    box-shadow: 0 6px 30px rgba(0, 0, 0, 0.4), 0 0 15px rgba(255, 255, 255, 0.5);
+    box-shadow: 0 6px 30px rgba(0, 0, 0, 0.4), 0 0 15px rgba(91, 71, 106, 0.5);
   }
   
   .card-row::-webkit-scrollbar {
