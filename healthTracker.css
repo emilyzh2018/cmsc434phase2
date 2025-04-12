@@ -364,3 +364,11 @@ progress {
 .modal.on-top {
   z-index: 1002 !important; 
 }
+
+#trends-gallery img {
+  max-width: 100%;
+  height: 9em;
+  display: block;
+  margin: 0 auto;
+  border-radius: 10px;
+}
