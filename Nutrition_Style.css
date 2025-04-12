@@ -1,7 +1,7 @@
 body {
   font-family: 'Inter';
   font-size: 22px;
-  /* margin: 0; */
+
 }
 
 .device {
@@ -353,6 +353,13 @@ progress{
 .small-btn:hover {
   background-color: #6e61a9;
 }
+.summary-item.warning progress {
+  accent-color: #E94E77; 
+}
+.summary-item progress {
+  accent-color: #4A90E2; 
+}
+
 
 
 

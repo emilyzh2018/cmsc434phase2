@@ -12,7 +12,7 @@ function goBack() {
       caffeine: +document.getElementById("goalCaffeine").value,
     };
   
-    localStorage.setItem("userGoals", JSON.stringify(goals));
+    localStorage.setItem("nutritionGoals", JSON.stringify(goals));
   
     alert("Goals saved successfully!");
   
