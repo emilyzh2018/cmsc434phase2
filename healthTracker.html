@@ -354,42 +354,45 @@ let pastRoutines = JSON.parse(localStorage.getItem("pastRoutines")) || [];
     let selectedRoutineIndex = null;
 
     function renderPastRoutines() {
-      pastRoutinesDiv.innerHTML = "";
-      pastRoutines.forEach((routine, index) => {
-        const routineDiv = document.createElement("div");
-        routineDiv.className = "past-routine-item";
-        routineDiv.innerHTML = `
-  <span>${routine.name}</span>
-  <button class="small-btn apply-btn" data-index="${index}">Select</button>
-  <button class="small-btn edit-btn" data-index="${index}">Edit</button>
-  <button class="delete-btn" data-index="${index}">Delete</button>
-`;
-document.querySelectorAll(".edit-btn").forEach((btn) => {
-  btn.addEventListener("click", (e) => {
-    const index = e.target.getAttribute("data-index");
-    openEditRoutineModal(index); //Now only editing
+  pastRoutinesDiv.innerHTML = "";
+
+  pastRoutines.forEach((routine, index) => {
+    const routineDiv = document.createElement("div");
+    routineDiv.className = "past-routine-item";
+    routineDiv.innerHTML = `
+      <span>${routine.name}</span>
+      <button class="small-btn apply-btn" data-index="${index}">Select</button>
+      <button class="small-btn edit-btn" data-index="${index}">Edit</button>
+      <button class="delete-btn" data-index="${index}">Delete</button>
+    `;
+
+    pastRoutinesDiv.appendChild(routineDiv); 
   });
-});
 
-        pastRoutinesDiv.appendChild(routineDiv);
-      });
-
-      document.querySelectorAll(".apply-btn").forEach((btn) => {
-  btn.addEventListener("click", (e) => {
-    const index = e.target.getAttribute("data-index");
-    const routine = pastRoutines[index];
-    applyRoutine(routine); 
+  
+  document.querySelectorAll(".edit-btn").forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      const index = e.target.getAttribute("data-index");
+      openEditRoutineModal(index);
+    });
   });
-});
 
+  document.querySelectorAll(".apply-btn").forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      const index = e.target.getAttribute("data-index");
+      const routine = pastRoutines[index];
+      applyRoutine(routine); 
+    });
+  });
 
-      document.querySelectorAll(".delete-btn").forEach((btn) => {
-        btn.addEventListener("click", (e) => {
-          const index = e.target.getAttribute("data-index");
-          deleteRoutine(index);
-        });
-      });
-    }
+  document.querySelectorAll(".delete-btn").forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      const index = e.target.getAttribute("data-index");
+      deleteRoutine(index);
+    });
+  });
+}
+
 
     function openEditRoutineModal(index) {
       selectedRoutineIndex = index;
@@ -547,7 +550,8 @@ function deleteRoutine(index) {
 
     saveEditedRoutineBtn.addEventListener("click", () => {
       const newName = editRoutineNameInput.value;
-      if (newName && pastRoutines[selectedRoutineIndex].exercises.length > 0) {
+      if (newName) {
+
         pastRoutines[selectedRoutineIndex].name = newName;
         renderPastRoutines();
         closeModal(editRoutineModal);
