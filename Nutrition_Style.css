@@ -44,17 +44,15 @@ body {
 
 .summary-box {
   background-color: #D4C9F0;
-  padding: 8px 10px;
-  border: 3px solid black;
-  width: 470px;
-  margin: 10px auto;
-  text-align: left;
-  padding-top: 20px;
-  border-radius: 20px;
-  font-size: 0.9em;
+  border: 2px solid #bbb;
+  border-radius: 12px;
+  padding: 16px 20px;
+  margin: 10px 12px;
+  font-size: 0.95em;
+  line-height: 1.4;
+  color: #1a1a1a; 
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
-
-
 .bottom-nav {
   display: flex;
   justify-content: space-around;
@@ -63,18 +61,6 @@ body {
   box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
   outline: 3px solid black;
 }
-  
-/* .nav-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  font-size: 1.0em;
-  padding: 5px 25px;
-  cursor: pointer;
-  background-color: #ACD1F0;
-  border-radius: 9px;
-
-} */
   
 .nav-item.active {
   background-color: #132524;
@@ -88,17 +74,17 @@ body {
   margin-bottom: 4px;
 }
   
-  .nav-item .label {
+.nav-item .label {
     font-size: 0.9em;
-  }
+}
 
-  #nav-item-active {
+#nav-item-active {
     background-color: #d7a9f5;
     border-radius: 9px;
-  }
+}
 
 
-  .nav-item a {
+.nav-item a {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -123,8 +109,38 @@ body {
 .summary-item {
   display: flex;
   flex-direction: column;
-  margin-bottom: 6px;
+  margin-bottom: 12px;
+  width: 100%;
 }
+
+.summary-item label {
+  font-size: 0.95em;
+  margin-bottom: 4px;
+  font-weight: 500;
+  color: #1a1a1a;
+}
+
+.summary-box progress {
+  width: 100%;
+  height: 14px;
+  border-radius: 10px;
+  appearance: none;
+}
+
+progress::-webkit-progress-bar {
+  background-color: #e0e0e0;
+  border-radius: 10px;
+}
+
+progress::-webkit-progress-value {
+  background-color: #4A90E2;
+  border-radius: 10px;
+}
+
+.summary-item.warning progress::-webkit-progress-value {
+  background-color: #E94E77;
+}
+
 
 .log-input {
   display: flex;
@@ -146,7 +162,6 @@ body {
   border: 1px solid #aaa;
   border-radius: 8px;
 }
-
 .close {
   float: right;
   font-size: 24px;
@@ -250,16 +265,14 @@ body {
   font-size: 1em;
 }
 
-.delete-btn {
-  background-color: #8A78B4;
-  color: white;
-  border: none;
-  padding: 6px 12px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 0.9em;
-  transition: background-color 0.3s ease;
-}
+
+  .delete-btn {
+    background-color: #8A78B4;
+    padding: 4px 10px;
+    font-size: 0.85em;
+    border-radius: 6px;
+    margin-top: 6px;
+  }
 
 .delete-btn:hover {
   background-color: #6e61a9; 
@@ -324,7 +337,7 @@ progress{
   font-size: 0.9em;
 }
 #scroll-wrapper {
-  max-height: 400px;
+  max-height: 550px;
   overflow-y: auto;
   margin-bottom: 10px;
   padding-right: 5px;
@@ -358,6 +371,31 @@ progress{
 }
 .summary-item progress {
   accent-color: #4A90E2; 
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+
+.modal-content {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 12px;
+  text-align: center;
+  width: 300px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+}
+
+.modal-content p {
+  margin-bottom: 15px;
+  font-size: 1em;
 }
 
 
