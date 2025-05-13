@@ -38,7 +38,12 @@
             <span class="close-btn" id="close-goal-modal">×</span>
             <h3 id="goal-modal-title">Add New Goal</h3>
             <input type="text" id="goal-title" placeholder="Goal Title" />
-            <input type="text" id="goal-category" placeholder="Category (e.g. cardio, strength)" />
+            <select id="goal-category">
+              <option value="">Select Category</option>
+              <option value="Cardio">Cardio</option>
+              <option value="Weightlifting">Weightlifting</option>
+            </select>
+            
             <input type="number" id="goal-target" placeholder="Target Value" />
             <input type="date" id="goal-start-date" />
             <input type="date" id="goal-end-date" />
@@ -633,26 +638,70 @@ if (savedRoutine) {
   goals.forEach((goal, index) => {
     const div = document.createElement("div");
     div.className = "goal-item";
-    div.innerHTML = `
+
+    // Goal title and edit button
+    let html = `
       <div class="goal-title">
         ${goal.title}
         <button class="edit-goal-btn small-btn" data-index="${index}" style="margin-left: 8px;">Edit</button>
       </div>
-      <progress class="goal-progress" value="${goal.progress || 0}" max="${goal.target}"></progress>
     `;
-    div.onclick = () => updateGoalProgress(index);
+
+    // Different display based on category
+    if (goal.category === "Weightlifting") {
+      const checked = goal.progress >= 1 ? "checked" : "";
+      html = `
+  <div class="goal-checkbox-line">
+    <label>
+      <input type="checkbox" ${checked} data-index="${index}" class="goal-checkbox" />
+      ${goal.title}
+    </label>
+    <button class="edit-goal-btn small-btn" data-index="${index}">Edit</button>
+  </div>
+`;
+
+    } else {
+      html += `
+        <progress class="goal-progress" value="${goal.progress || 0}" max="${goal.target}"></progress>
+      `;
+    }
+
+    div.innerHTML = html;
+
+    // Click to update (only for non-weightlifting)
+    if (goal.category !== "Weightlifting") {
+      div.onclick = () => updateGoalProgress(index);
+    }
+
     goalsList.appendChild(div);
   });
 
-
+  // Edit goal event listeners
   document.querySelectorAll(".edit-goal-btn").forEach(btn => {
     btn.addEventListener("click", (e) => {
-      e.stopPropagation(); 
+      e.stopPropagation();
       const index = parseInt(btn.getAttribute("data-index"));
       openEditGoalModal(index);
     });
   });
+
+  // Checkbox handler for weightlifting goals
+  document.querySelectorAll(".goal-checkbox").forEach(cb => {
+    cb.addEventListener("change", (e) => {
+      const index = parseInt(e.target.getAttribute("data-index"));
+      goals[index].progress = e.target.checked ? 1 : 0;
+
+      if (goals[index].progress >= 1) {
+        document.getElementById("goal-achieved-modal").style.display = "block";
+        goals.splice(index, 1); // Remove completed
+      }
+
+      localStorage.setItem("goals", JSON.stringify(goals));
+      renderGoals();
+    });
+  });
 }
+
 
 
   let progressModal = document.getElementById("progress-modal");
