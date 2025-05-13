@@ -629,18 +629,31 @@ if (savedRoutine) {
   let editingGoalIndex = null;
 
   function renderGoals() {
-    goalsList.innerHTML = "";
-    goals.forEach((goal, index) => {
-      const div = document.createElement("div");
-      div.className = "goal-item";
-      div.innerHTML = `
-        <div class="goal-title">${goal.title}</div>
-        <progress class="goal-progress" value="${goal.progress || 0}" max="${goal.target}"></progress>
-      `;
-      div.onclick = () => updateGoalProgress(index);
-      goalsList.appendChild(div);
+  goalsList.innerHTML = "";
+  goals.forEach((goal, index) => {
+    const div = document.createElement("div");
+    div.className = "goal-item";
+    div.innerHTML = `
+      <div class="goal-title">
+        ${goal.title}
+        <button class="edit-goal-btn small-btn" data-index="${index}" style="margin-left: 8px;">Edit</button>
+      </div>
+      <progress class="goal-progress" value="${goal.progress || 0}" max="${goal.target}"></progress>
+    `;
+    div.onclick = () => updateGoalProgress(index);
+    goalsList.appendChild(div);
+  });
+
+
+  document.querySelectorAll(".edit-goal-btn").forEach(btn => {
+    btn.addEventListener("click", (e) => {
+      e.stopPropagation(); 
+      const index = parseInt(btn.getAttribute("data-index"));
+      openEditGoalModal(index);
     });
-  }
+  });
+}
+
 
   let progressModal = document.getElementById("progress-modal");
 let progressInput = document.getElementById("progress-input");
@@ -716,6 +729,18 @@ deleteGoalBtn.onclick = () => {
     editingGoalIndex = null;
     goalModal.style.display = "block";
   }
+  function openEditGoalModal(index) {
+  const goal = goals[index];
+  goalTitle.value = goal.title;
+  goalCategory.value = goal.category;
+  goalTarget.value = goal.target;
+  goalStartDate.value = goal.start;
+  goalEndDate.value = goal.end;
+  editingGoalIndex = index;
+
+  goalModal.style.display = "block";
+}
+
 
   function closeGoalForm() {
     goalModal.style.display = "none";
