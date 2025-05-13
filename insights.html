@@ -16,7 +16,10 @@
 
       <div class="search-container">
         <div class="search-wrapper">
-          <div class="search-prefix" id="search-prefix">Category:</div>
+          <div class="search-prefix" id="search-prefix">
+            <span id="selected-category">Category:</span>
+            <button id="clear-category" style="display: none;">×</button>
+          </div>
           <input type="text" id="search-input" placeholder="Search..." />
           <ul class="dropdown" id="category-dropdown">
             <li data-category="Nutrition">Nutrition</li>
@@ -24,6 +27,7 @@
             <li data-category="Muscle Gain">Muscle Gain</li>
           </ul>
         </div>
+        
         <img src="images/search.png" alt="Search Icon" class="search-icon" />
       </div>
       
@@ -106,6 +110,28 @@
     const prefix = document.getElementById('search-prefix');
     const dropdown = document.getElementById('category-dropdown');
     let selectedCategory = "";
+    const clearCategoryBtn = document.getElementById('clear-category');
+const selectedCategorySpan = document.getElementById('selected-category');
+
+clearCategoryBtn.addEventListener('click', () => {
+  selectedCategory = "";
+  selectedCategorySpan.textContent = "Category:";
+
+  searchInput.placeholder = "Search...";
+  searchInput.value = "";
+  clearCategoryBtn.style.display = "none";
+
+  // Show all sections and limit to 3 cards each
+  document.querySelectorAll('.section').forEach(section => {
+    section.style.display = 'block';
+    const cards = section.querySelectorAll('.card');
+    cards.forEach((card, idx) => {
+      card.style.display = idx < 3 ? 'block' : 'none';
+    });
+  });
+});
+
+
   
     document.addEventListener("DOMContentLoaded", () => {
       // Load user preferences
@@ -137,7 +163,9 @@
       dropdown.querySelectorAll('li').forEach(item => {
         item.addEventListener('click', () => {
           selectedCategory = item.getAttribute('data-category');
-          prefix.textContent = selectedCategory + ':';
+          selectedCategorySpan.textContent = selectedCategory + ':';
+clearCategoryBtn.style.display = 'inline';
+
           prefix.style.display = 'inline';
           dropdown.style.display = 'none';
           searchInput.placeholder = `Search ${selectedCategory.toLowerCase()}...`;
