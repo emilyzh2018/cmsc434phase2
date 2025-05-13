@@ -94,9 +94,9 @@
         </a>
       </div>
       <div class="nav-item">
-        <a href="community.html">
-        <img src="images/users-medical.png" alt="Community Icon" class="icon" />
-        <span class="label">Community</span>
+        <a href="profile.html">
+        <img src="images/profile.png" alt="Profile Icon" class="icon" />
+        <span class="label">Profile</span>
       </a>
       </div>
     </div>
@@ -106,18 +106,17 @@
     const prefix = document.getElementById('search-prefix');
     const dropdown = document.getElementById('category-dropdown');
     let selectedCategory = "";
-
+  
     document.addEventListener("DOMContentLoaded", () => {
-      //Set section headers
+      // Load user preferences
       const prefOne = localStorage.getItem("prefOne") || "Weight Loss";
       const prefTwo = localStorage.getItem("prefTwo") || "Muscle Gain";
       const prefThree = localStorage.getItem("prefThree") || "Dieting";
-
+  
       document.getElementById("pref-one").innerText = prefOne;
       document.getElementById("pref-two").innerText = prefTwo;
       document.getElementById("pref-three").innerText = prefThree;
-
-      //Populate dropdown based on preferences
+  
       const preferences = [prefOne, prefTwo, prefThree];
       dropdown.innerHTML = '';
       preferences.forEach(pref => {
@@ -126,8 +125,15 @@
         li.setAttribute('data-category', pref);
         dropdown.appendChild(li);
       });
-
-      //dropdown items
+  
+      // Hide all cards after the first 3 by default
+      document.querySelectorAll('.section').forEach(section => {
+        const cards = section.querySelectorAll('.card');
+        cards.forEach((card, idx) => {
+          card.style.display = idx < 3 ? 'block' : 'none';
+        });
+      });
+  
       dropdown.querySelectorAll('li').forEach(item => {
         item.addEventListener('click', () => {
           selectedCategory = item.getAttribute('data-category');
@@ -135,24 +141,39 @@
           prefix.style.display = 'inline';
           dropdown.style.display = 'none';
           searchInput.placeholder = `Search ${selectedCategory.toLowerCase()}...`;
-          searchInput.focus();
+          searchInput.value = "";
+          revealCategory(selectedCategory);
         });
       });
     });
-
+  
+    function revealCategory(category) {
+      document.querySelectorAll('.section').forEach(section => {
+        const sectionTitle = section.querySelector('h2')?.textContent.trim().toLowerCase();
+        const cards = section.querySelectorAll('.card');
+  
+        if (sectionTitle === category.toLowerCase()) {
+          section.style.display = 'block';
+          cards.forEach(card => {
+            card.style.display = 'block'; // Show all
+          });
+        } else {
+          section.style.display = 'none';
+        }
+      });
+    }
   
     searchInput.addEventListener('focus', () => {
       if (!selectedCategory) dropdown.style.display = 'block';
     });
-
-    //Filter cards based on input and category
+  
     searchInput.addEventListener('input', () => {
       const query = searchInput.value.trim().toLowerCase();
-
+  
       document.querySelectorAll('.section').forEach(section => {
         const sectionTitle = section.querySelector('h2')?.textContent.trim().toLowerCase();
         const cards = section.querySelectorAll('.card');
-
+  
         if (sectionTitle === selectedCategory.toLowerCase()) {
           section.style.display = 'block';
           cards.forEach(card => {
@@ -164,14 +185,14 @@
         }
       });
     });
-
-    
+  
     document.addEventListener('click', (e) => {
       if (!e.target.closest('.search-container')) {
         dropdown.style.display = 'none';
       }
     });
   </script>
+  
   
   
   
