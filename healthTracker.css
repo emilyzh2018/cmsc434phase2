@@ -9,6 +9,14 @@ body {
   overflow-y: auto;
   padding-bottom: 20px;
 }
+#inline-add-exercise-form {
+  display: none;
+}
+#clear-routine-btn {
+  background-color: #f66;
+  color: white;
+  margin-left: 10px;
+}
 
 .device {
   margin: auto;

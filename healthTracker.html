@@ -19,8 +19,11 @@
 
         <button class="small-btn" id="edit-routine-btn">Edit</button>
         <ul id="routine-list">
+          
          
         </ul>
+        <button class="small-btn" id="clear-routine-btn">Clear Routine</button>
+
       </div>
 
       <div id="daily-tip-box">
@@ -81,8 +84,8 @@
         <span class="close-btn" id="close-trends-modal">×</span>
         <h3>Trends</h3>
         <div class="gallery-content" id="trends-gallery">
-          <div class="gallery-item">Mile Pace<br><img src="images/graphs.png" alt="mile graph" /></div>
-          <div class="gallery-item">Steps<br><img src="images/graphs1.png" alt="steps graph" /></div>
+          <div class="gallery-item">Mile Pace<br><img src="images/mile_pace_trend.png" alt="mile graph" /></div>
+          <div class="gallery-item">Steps<br><img src="images/steps_trend.png" alt="steps graph" /></div>
         </div>
       </div>
     </div>
@@ -105,10 +108,20 @@
         <h3>Create/Edit Workout Routine</h3>
         <div class="input-form">
           <input type="text" id="routine-name" placeholder="Routine Name" />
-          <div id="current-exercises-list"></div> 
+          <div id="current-exercises-list">
+
+          </div>
+           
           <button class="small-btn" id="add-exercise-btn">Add Exercise</button>
+          <div id="inline-add-exercise-form" class="input-form">
+            <input type="text" id="inline-exercise-name" placeholder="Exercise" />
+            <input type="text" id="inline-exercise-sets" placeholder="Sets (e.g., 3 sets)" />
+            <button class="small-btn" id="inline-submit-exercise">Add Exercise</button>
+          </div>
+          
           <button class="small-btn" id="save-routine-btn">Save Routine</button>
         </div>
+
         <h3 style="margin-top: 20px;">Past Routines</h3>
         <div id="past-routines">
          
@@ -248,6 +261,14 @@
 document.addEventListener("DOMContentLoaded", () => {
   loadTodayRoutineFromProfile();
 });
+const clearRoutineBtn = document.getElementById("clear-routine-btn");
+
+clearRoutineBtn.addEventListener("click", () => {
+  localStorage.removeItem("currentRoutine");
+  document.getElementById("routine-title-display").textContent = "None Selected";
+  routineList.innerHTML = "";
+});
+
 
     document.addEventListener("DOMContentLoaded", () => {
 
@@ -491,17 +512,37 @@ function deleteRoutine(index) {
       renderCurrentExercises(); 
     });
 
+    // addExerciseBtn.addEventListener("click", () => {
+    //   isEditingRoutine = false;
+    //   exerciseInputModal.classList.remove("on-top"); 
+    //   openModal(exerciseInputModal);
+    // });
     addExerciseBtn.addEventListener("click", () => {
-      isEditingRoutine = false;
-      exerciseInputModal.classList.remove("on-top"); 
-      openModal(exerciseInputModal);
-    });
+  document.getElementById("inline-add-exercise-form").style.display = "block";
+  addExerciseBtn.style.display = "none"; //hide button
+});
+
+
 
 
     closeExerciseInputModal.addEventListener("click", () => {
   exerciseInputModal.classList.remove("on-top");
   closeModal(exerciseInputModal);
 });
+document.getElementById("inline-submit-exercise").addEventListener("click", () => {
+  const exercise = document.getElementById("inline-exercise-name").value;
+  const sets = document.getElementById("inline-exercise-sets").value;
+  if (exercise && sets) {
+    currentRoutine.exercises.push({ exercise, sets });
+    renderCurrentExercises();
+    document.getElementById("inline-exercise-name").value = "";
+    document.getElementById("inline-exercise-sets").value = "";
+    document.getElementById("inline-add-exercise-form").style.display = "none";
+    document.getElementById("inline-add-exercise-form").style.display = "none";
+    addExerciseBtn.style.display = "block"; //show the button again
+  }
+});
+
 
 
     submitExerciseBtn.addEventListener("click", () => {
