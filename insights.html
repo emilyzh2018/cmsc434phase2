@@ -5,13 +5,40 @@
   <title>Insights</title>
   <link href="https://fonts.googleapis.com/css?family=Inter" rel="stylesheet" />
   <link rel="stylesheet" href="insights.css" />
+  <style>
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+
+    .modal-content {
+      background-color: white;
+      margin: 10% auto;
+      padding: 20px;
+      border-radius: 12px;
+      width: 80%;
+      max-width: 500px;
+      font-family: Inter, sans-serif;
+    }
+
+    .close-btn {
+      float: right;
+      font-size: 1.5em;
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body>
   <div class="device">
     <div class="main-content">
       <div id="title-bar">
         <h1>Insights</h1>
-        
       </div>
 
       <div class="search-container">
@@ -27,63 +54,68 @@
             <li data-category="Muscle Gain">Muscle Gain</li>
           </ul>
         </div>
-        
         <img src="images/search.png" alt="Search Icon" class="search-icon" />
       </div>
-      
-      
-      
 
       <div class="section">
         <h2 id="pref-one">Nutrition</h2>
         <div class="card-row">
-          <div class="card">Super foods</div>
-          <div class="card">How to Read Nutrition Labels</div>
-          <div class="card">Healthy Food Habits</div>
-          <div class="card">Healthy Cooking Guide</div>
-          <div class="card">What Are Macros?</div>
-          <div class="card">Common Misconceptions on Nutrition</div>
+          <div class="card article-card">Super foods</div>
+          <div class="card article-card">How to Read Nutrition Labels</div>
+          <div class="card article-card">Healthy Food Habits</div>
+          <div class="card article-card">Healthy Cooking Guide</div>
+          <div class="card article-card">What Are Macros?</div>
+          <div class="card article-card">Common Misconceptions on Nutrition</div>
         </div>
       </div>
 
       <div class="section">
         <h2 id="pref-two">Weight Loss</h2>
         <div class="card-row">
-          <div class="card">Best Foods for Weight Loss</div>
-          <div class="card">Weight Loss Myths</div>
-          <div class="card">Best Workouts for Weight Loss</div>
-          <div class="card">Cardio vs. Lifting</div>
-          <div class="card">How to Healthily and Quickly Lose Weight</div>
-          <div class="card">Best Snacks For Weight Loss</div>
+          <div class="card article-card">Best Foods for Weight Loss</div>
+          <div class="card article-card">Weight Loss Myths</div>
+          <div class="card article-card">Best Workouts for Weight Loss</div>
+          <div class="card article-card">Cardio vs. Lifting</div>
+          <div class="card article-card">How to Healthily and Quickly Lose Weight</div>
+          <div class="card article-card">Best Snacks For Weight Loss</div>
         </div>
       </div>
 
       <div class="section">
         <h2 id="pref-three">Muscle Gain</h2>
         <div class="card-row">
-          <div class="card">Best Leg Workouts</div>
-          <div class="card">The Push Pull Legs (PPL) Split</div>
-          <div class="card">Upper Body Workouts</div>
-          <div class="card">Do Protein Shakes Work?</div>
-          <div class="card">Strength vs. Lifting for Aesthetics</div>
-          <div class="card">Bodybuilding 101</div>
-          <div class="card">Is Powerlifting Effective?</div>
+          <div class="card article-card">Best Leg Workouts</div>
+          <div class="card article-card">The Push Pull Legs (PPL) Split</div>
+          <div class="card article-card">Upper Body Workouts</div>
+          <div class="card article-card">Do Protein Shakes Work?</div>
+          <div class="card article-card">Strength vs. Lifting for Aesthetics</div>
+          <div class="card article-card">Bodybuilding 101</div>
+          <div class="card article-card">Is Powerlifting Effective?</div>
         </div>
+      </div>
+    </div>
+
+    <!-- Modal for Articles -->
+    <div id="article-modal" class="modal">
+      <div class="modal-content">
+        <span class="close-btn" id="close-article-modal">×</span>
+        <h3 id="article-title">Article Title</h3>
+        <p id="article-content">Article content will appear here...</p>
       </div>
     </div>
 
     <div class="bottom-nav">
       <div class="nav-item active">
         <a id="nav-item-active" href="insights.html">
-        <img src="images/insight.png" alt="Insight Icon" class="icon" />
-        <span class="label">Insights</span>
+          <img src="images/insight.png" alt="Insight Icon" class="icon" />
+          <span class="label">Insights</span>
         </a>
       </div>
       <div class="nav-item">
         <a href="healthTracker.html">
-        <img src="images/watch-fitness.png" alt="Fitness Icon" class="icon" />
-        <span class="label">Fitness</span>
-      </a>
+          <img src="images/watch-fitness.png" alt="Fitness Icon" class="icon" />
+          <span class="label">Fitness</span>
+        </a>
       </div>
       <div class="nav-item">
         <a href="index.html">
@@ -93,56 +125,51 @@
       </div>
       <div class="nav-item">
         <a href="Nutrition_Style.html">
-        <img src="images/apple-whole.png" alt="Nutrition Icon" class="icon" />
-        <span class="label">Nutrition</span>
+          <img src="images/apple-whole.png" alt="Nutrition Icon" class="icon" />
+          <span class="label">Nutrition</span>
         </a>
       </div>
       <div class="nav-item">
         <a href="profile.html">
-        <img src="images/profile.png" alt="Profile Icon" class="icon" />
-        <span class="label">Profile</span>
-      </a>
+          <img src="images/profile.png" alt="Profile Icon" class="icon" />
+          <span class="label">Profile</span>
+        </a>
       </div>
     </div>
   </div>
+
   <script>
     const searchInput = document.getElementById('search-input');
     const prefix = document.getElementById('search-prefix');
     const dropdown = document.getElementById('category-dropdown');
-    let selectedCategory = "";
     const clearCategoryBtn = document.getElementById('clear-category');
-const selectedCategorySpan = document.getElementById('selected-category');
+    const selectedCategorySpan = document.getElementById('selected-category');
+    let selectedCategory = "";
 
-clearCategoryBtn.addEventListener('click', () => {
-  selectedCategory = "";
-  selectedCategorySpan.textContent = "Category:";
-
-  searchInput.placeholder = "Search...";
-  searchInput.value = "";
-  clearCategoryBtn.style.display = "none";
-
-  // Show all sections and limit to 3 cards each
-  document.querySelectorAll('.section').forEach(section => {
-    section.style.display = 'block';
-    const cards = section.querySelectorAll('.card');
-    cards.forEach((card, idx) => {
-      card.style.display = idx < 3 ? 'block' : 'none';
+    clearCategoryBtn.addEventListener('click', () => {
+      selectedCategory = "";
+      selectedCategorySpan.textContent = "Category:";
+      searchInput.placeholder = "Search...";
+      searchInput.value = "";
+      clearCategoryBtn.style.display = "none";
+      document.querySelectorAll('.section').forEach(section => {
+        section.style.display = 'block';
+        const cards = section.querySelectorAll('.card');
+        cards.forEach((card, idx) => {
+          card.style.display = idx < 3 ? 'block' : 'none';
+        });
+      });
     });
-  });
-});
 
-
-  
     document.addEventListener("DOMContentLoaded", () => {
-      // Load user preferences
       const prefOne = localStorage.getItem("prefOne") || "Weight Loss";
       const prefTwo = localStorage.getItem("prefTwo") || "Muscle Gain";
       const prefThree = localStorage.getItem("prefThree") || "Dieting";
-  
+
       document.getElementById("pref-one").innerText = prefOne;
       document.getElementById("pref-two").innerText = prefTwo;
       document.getElementById("pref-three").innerText = prefThree;
-  
+
       const preferences = [prefOne, prefTwo, prefThree];
       dropdown.innerHTML = '';
       preferences.forEach(pref => {
@@ -151,21 +178,19 @@ clearCategoryBtn.addEventListener('click', () => {
         li.setAttribute('data-category', pref);
         dropdown.appendChild(li);
       });
-  
-      // Hide all cards after the first 3 by default
+
       document.querySelectorAll('.section').forEach(section => {
         const cards = section.querySelectorAll('.card');
         cards.forEach((card, idx) => {
           card.style.display = idx < 3 ? 'block' : 'none';
         });
       });
-  
+
       dropdown.querySelectorAll('li').forEach(item => {
         item.addEventListener('click', () => {
           selectedCategory = item.getAttribute('data-category');
           selectedCategorySpan.textContent = selectedCategory + ':';
-clearCategoryBtn.style.display = 'inline';
-
+          clearCategoryBtn.style.display = 'inline';
           prefix.style.display = 'inline';
           dropdown.style.display = 'none';
           searchInput.placeholder = `Search ${selectedCategory.toLowerCase()}...`;
@@ -174,34 +199,31 @@ clearCategoryBtn.style.display = 'inline';
         });
       });
     });
-  
+
     function revealCategory(category) {
       document.querySelectorAll('.section').forEach(section => {
         const sectionTitle = section.querySelector('h2')?.textContent.trim().toLowerCase();
         const cards = section.querySelectorAll('.card');
-  
         if (sectionTitle === category.toLowerCase()) {
           section.style.display = 'block';
           cards.forEach(card => {
-            card.style.display = 'block'; // Show all
+            card.style.display = 'block';
           });
         } else {
           section.style.display = 'none';
         }
       });
     }
-  
+
     searchInput.addEventListener('focus', () => {
       if (!selectedCategory) dropdown.style.display = 'block';
     });
-  
+
     searchInput.addEventListener('input', () => {
       const query = searchInput.value.trim().toLowerCase();
-  
       document.querySelectorAll('.section').forEach(section => {
         const sectionTitle = section.querySelector('h2')?.textContent.trim().toLowerCase();
         const cards = section.querySelectorAll('.card');
-  
         if (sectionTitle === selectedCategory.toLowerCase()) {
           section.style.display = 'block';
           cards.forEach(card => {
@@ -213,17 +235,53 @@ clearCategoryBtn.style.display = 'inline';
         }
       });
     });
-  
+
     document.addEventListener('click', (e) => {
       if (!e.target.closest('.search-container')) {
         dropdown.style.display = 'none';
       }
     });
+
+    // Article modal functionality
+    const articleData = {
+      "Super foods": {
+        title: "Super Foods",
+        content: "Super foods are nutrient-rich foods that benefit your health. Examples include blueberries, kale, salmon, quinoa, and green tea. They're packed with vitamins, fiber, and antioxidants."
+      },
+      "How to Read Nutrition Labels": {
+        title: "How to Read Nutrition Labels",
+        content: "Start by looking at the serving size and calories. Pay close attention to saturated fat, sodium, added sugars, and the % Daily Value column to guide healthy choices."
+      },
+      "Healthy Food Habits": {
+        title: "Healthy Food Habits",
+        content: "Eat more whole foods, cook at home, reduce sugar, and drink plenty of water. Balance your plate with vegetables, lean proteins, and whole grains."
+      }
+    };
+
+    const modal = document.getElementById("article-modal");
+    const modalTitle = document.getElementById("article-title");
+    const modalContent = document.getElementById("article-content");
+    const closeModal = document.getElementById("close-article-modal");
+
+    document.querySelectorAll(".article-card").forEach(card => {
+      card.addEventListener("click", () => {
+        const text = card.textContent.trim();
+        const article = articleData[text];
+        if (article) {
+          modalTitle.textContent = article.title;
+          modalContent.textContent = article.content;
+          modal.style.display = "block";
+        }
+      });
+    });
+
+    closeModal.onclick = () => {
+      modal.style.display = "none";
+    };
+
+    window.onclick = (e) => {
+      if (e.target === modal) modal.style.display = "none";
+    };
   </script>
-  
-  
-  
-  
-  
 </body>
 </html>
